@@ -1,0 +1,105 @@
+\hypertarget{tourism__tsp_8h_source}{}\doxysection{tourism\+\_\+tsp.\+h}
+\mbox{\hyperlink{tourism__tsp_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ TOURISM\_TSP\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ TOURISM\_TSP\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{csv_8h}{csv.h}}"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{tourism__tsp_8h_ac63a4212431a5997f23996606877ea3e}{findNearestNeighborTourism}}(\textcolor{keywordtype}{int}\ currentNode,\ \textcolor{keyword}{const}\ std::vector<bool>\&\ visited,\ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ distances)\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{int}\ numNodes\ =\ visited.size();}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{int}\ nearestNeighbor\ =\ -\/1;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{double}\ minDistance\ =\ std::numeric\_limits<double>::max();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes;\ ++i)\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!visited[i]\ \&\&\ distances[currentNode][i]\ <\ minDistance)\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ minDistance\ =\ distances[currentNode][i];}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ nearestNeighbor\ =\ i;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{return}\ nearestNeighbor;}
+\DoxyCodeLine{00035\ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00045\ std::vector<int>\ \mbox{\hyperlink{tourism__tsp_8h_aceb13bc0c12a203c8b23c69dfbb3f0ba}{triangularApproximationTourism}}(\textcolor{keyword}{const}\ std::vector<TourismData>\&\ edges,\ \textcolor{keywordtype}{int}\ numNodes)\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{comment}{//\ Create\ a\ distance\ matrix}}
+\DoxyCodeLine{00047\ \ \ \ \ std::vector<std::vector<double>>\ distances(numNodes,\ std::vector<double>(numNodes,\ 0.0));}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//\ Initialize\ the\ distance\ matrix\ with\ the\ provided\ distances\ in\ the\ edge\ data}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_tourism_data}{TourismData}}\&\ edge\ :\ edges)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ distances[edge.origin][edge.destination]\ =\ edge.distance;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ distances[edge.destination][edge.origin]\ =\ edge.distance;}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ std::vector<bool>\ visited(numNodes,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00056\ \ \ \ \ std::vector<int>\ tour;}
+\DoxyCodeLine{00057\ \ \ \ \ tour.reserve(numNodes);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{comment}{//\ Start\ at\ the\ node\ with\ the\ zero-\/identifier\ label}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{int}\ currentNode\ =\ 0;}
+\DoxyCodeLine{00061\ \ \ \ \ visited[currentNode]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00062\ \ \ \ \ tour.push\_back(currentNode);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{comment}{//\ Select\ the\ nearest\ neighbor\ node\ not\ visited\ yet\ as\ the\ next\ node\ to\ visit}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes\ -\/\ 1;\ ++i)\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nearestNeighbor\ =\ \mbox{\hyperlink{tourism__tsp_8h_ac63a4212431a5997f23996606877ea3e}{findNearestNeighborTourism}}(currentNode,\ visited,\ distances);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ currentNode\ =\ nearestNeighbor;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ visited[currentNode]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ tour.push\_back(currentNode);}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{comment}{//\ Add\ an\ edge\ from\ the\ last\ visited\ node\ back\ to\ the\ starting\ node}}
+\DoxyCodeLine{00073\ \ \ \ \ tour.push\_back(0);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{return}\ tour;}
+\DoxyCodeLine{00076\ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00084\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{tourism__tsp_8h_aa83b5b992a226b7b1ddbf257899b59c3}{solveTSPTourism}}(\textcolor{keyword}{const}\ std::string\&\ filename)\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{comment}{//\ Load\ tourism\ data}}
+\DoxyCodeLine{00086\ \ \ \ \ std::vector<TourismData>\ tourismData\ =\ \mbox{\hyperlink{csv_8h_a1e9358503c5b7702605616584887f8f3}{loadTourismGraph}}(filename);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{comment}{//\ Get\ the\ number\ of\ nodes}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{int}\ numNodes\ =\ 0;}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_tourism_data}{TourismData}}\&\ data\ :\ tourismData)\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ numNodes\ =\ std::max(numNodes,\ std::max(data.origin,\ data.destination)\ +\ 1);}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{comment}{//\ Perform\ the\ Triangular\ Approximation\ Heuristic}}
+\DoxyCodeLine{00095\ \ \ \ \ std::vector<int>\ tour\ =\ \mbox{\hyperlink{tourism__tsp_8h_aceb13bc0c12a203c8b23c69dfbb3f0ba}{triangularApproximationTourism}}(tourismData,\ numNodes);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{comment}{//\ Create\ a\ distance\ matrix}}
+\DoxyCodeLine{00098\ \ \ \ \ std::vector<std::vector<double>>\ distances(numNodes,\ std::vector<double>(numNodes,\ 0.0));}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{comment}{//\ Initialize\ the\ distance\ matrix\ with\ the\ provided\ distances\ in\ the\ tourism\ data}}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_tourism_data}{TourismData}}\&\ data\ :\ tourismData)\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ distances[data.origin][data.destination]\ =\ data.distance;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ distances[data.destination][data.origin]\ =\ data.distance;}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{comment}{//\ Print\ the\ tour}}
+\DoxyCodeLine{00107\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Tour:\ "{}};}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes;\ ++i)\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ std::cout\ <<\ tour[i]\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((i\ +\ 1)\ \%\ 10\ ==\ 0)\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;\ \textcolor{comment}{//\ Add\ a\ line\ break\ after\ every\ 10\ nodes}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ Calculate\ the\ total\ distance\ of\ the\ tour}}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{double}\ totalDistance\ =\ 0.0;}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes;\ ++i)\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ totalDistance\ +=\ distances[tour[i]][tour[(i\ +\ 1)\ \%\ numNodes]];}
+\DoxyCodeLine{00120\ \ \ \ \ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{comment}{//\ Print\ the\ total\ distance}}
+\DoxyCodeLine{00123\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Total\ Distance:\ "{}}\ <<\ totalDistance\ <<\ \textcolor{stringliteral}{"{}\ Units"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00124\ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ TOURISM\_TSP\_H}}
+
+\end{DoxyCode}

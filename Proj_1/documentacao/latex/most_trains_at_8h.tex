@@ -1,0 +1,55 @@
+\hypertarget{most_trains_at_8h}{}\doxysection{most\+Trains\+At.\+h File Reference}
+\label{most_trains_at_8h}\index{mostTrainsAt.h@{mostTrainsAt.h}}
+
+
+This file defines and implements a function to calculate the maximum number of trains that can simultaneously arrive at a station.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}segment.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}stations.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{most_trains_at_8h_aa6bf18a6fbb923c278343db886a9fca0}{most\+Trains\+At}} (const std\+::vector$<$ \mbox{\hyperlink{struct_station}{Station}} $>$ \&stations, const std\+::vector$<$ \mbox{\hyperlink{struct_segment}{Segment}} $>$ \&segments, const std\+::string \&input\+\_\+station)
+\begin{DoxyCompactList}\small\item\em Calculate the maximum number of trains that can simultaneously arrive at a station. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file defines and implements a function to calculate the maximum number of trains that can simultaneously arrive at a station. 
+
+\begin{DoxyDate}{Date}
+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{most_trains_at_8h_aa6bf18a6fbb923c278343db886a9fca0}\label{most_trains_at_8h_aa6bf18a6fbb923c278343db886a9fca0}} 
+\index{mostTrainsAt.h@{mostTrainsAt.h}!mostTrainsAt@{mostTrainsAt}}
+\index{mostTrainsAt@{mostTrainsAt}!mostTrainsAt.h@{mostTrainsAt.h}}
+\doxysubsubsection{\texorpdfstring{mostTrainsAt()}{mostTrainsAt()}}
+{\footnotesize\ttfamily int most\+Trains\+At (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{struct_station}{Station}} $>$ \&}]{stations,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{struct_segment}{Segment}} $>$ \&}]{segments,  }\item[{const std\+::string \&}]{input\+\_\+station }\end{DoxyParamCaption})}
+
+
+
+Calculate the maximum number of trains that can simultaneously arrive at a station. 
+
+This function calculates the maximum number of trains that can simultaneously arrive at a given station based on the provided stations and segments information. Building the connections map takes O(\+M) time, where M is the number of segments. Checking if the input station exists in the connections map takes O(1) time on average. Calculating the maximum number of trains that can simultaneously arrive at the input station involves iterating over the connected stations and segments, and for each segment, finding the maximum capacity. This takes O(\+N $\ast$ S) time, where N is the number of connected stations and S is the number of segments. Finally, iterating over the segment\+\_\+max\+\_\+trains map and summing up the maximum capacities takes O(\+N) time.
+
+Therefore, the overall time complexity of the most\+Trains\+At function is O(\+N $\ast$ S), where N is the number of connected stations and S is the number of segments.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stations} & A vector of \mbox{\hyperlink{struct_station}{Station}} objects representing the stations in the network. \\
+\hline
+{\em segments} & A vector of \mbox{\hyperlink{struct_segment}{Segment}} objects representing the segments connecting the stations in the network. \\
+\hline
+{\em input\+\_\+station} & A string representing the name of the input station for which the maximum number of trains that can simultaneously arrive needs to be calculated.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The maximum number of trains that can simultaneously arrive at the input station. 
+\end{DoxyReturn}

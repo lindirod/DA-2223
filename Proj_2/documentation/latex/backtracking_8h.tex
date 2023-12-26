@@ -1,0 +1,103 @@
+\hypertarget{backtracking_8h}{}\doxysection{backtracking.\+h File Reference}
+\label{backtracking_8h}\index{backtracking.h@{backtracking.h}}
+
+
+Code for solving the Traveling Salesman Problem (TSP) using backtracking -\/ 4.\+1.  
+
+
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}csv.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_vertex}{Vertex}}
+\begin{DoxyCompactList}\small\item\em Represents a vertex in a graph, along with its adjacent edges. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{backtracking_8h_a28495925d38483e4e23110349f5c9bf4}{load\+Graph}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Reads the Edge Data from the \mbox{\hyperlink{csv_8h}{csv.\+h}} file and constructs the graph by populating the \textquotesingle{}vertices\textquotesingle{} vector with the corresponding vertices and their adjacent edges. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{backtracking_8h_a522c90fd85a2f924fad25b18ae833cc9}{tsp\+Backtracking}} (const std\+::vector$<$ int $>$ \&path, const std\+::vector$<$ bool $>$ \&visited, double current\+Distance)
+\begin{DoxyCompactList}\small\item\em Recursive function that uses backtracking to explore all possible paths in the graph and computes the distance. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{backtracking_8h_a01cb0ea4e71ee74ed3a7d996d819e7dc}{solve\+TSP}} ()
+\begin{DoxyCompactList}\small\item\em Solves the TSP using backtracking. Calls the \textquotesingle{}tsp\+Backtracking\textquotesingle{} function to find the minimum distance and prints the solution as well as the execution time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_vertex}{Vertex}} $>$ \mbox{\hyperlink{backtracking_8h_a3c2ae39ce2906ea0921096f416f80b96}{vertices}}
+\begin{DoxyCompactList}\small\item\em List of vertices in the graph. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Code for solving the Traveling Salesman Problem (TSP) using backtracking -\/ 4.\+1. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{backtracking_8h_a28495925d38483e4e23110349f5c9bf4}\label{backtracking_8h_a28495925d38483e4e23110349f5c9bf4}} 
+\index{backtracking.h@{backtracking.h}!loadGraph@{loadGraph}}
+\index{loadGraph@{loadGraph}!backtracking.h@{backtracking.h}}
+\doxysubsubsection{\texorpdfstring{loadGraph()}{loadGraph()}}
+{\footnotesize\ttfamily void load\+Graph (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})}
+
+
+
+Reads the Edge Data from the \mbox{\hyperlink{csv_8h}{csv.\+h}} file and constructs the graph by populating the \textquotesingle{}vertices\textquotesingle{} vector with the corresponding vertices and their adjacent edges. 
+
+Time complexity\+: O(\+E) where E is the number of edges in the graph. The function iterates over the edges twice. The first time is to determine the number of vertices and resize the \textquotesingle{}vertices\textquotesingle{} vector, and the second time to populate the adjacency list of vertices
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the csv file containing the graph \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{backtracking_8h_a01cb0ea4e71ee74ed3a7d996d819e7dc}\label{backtracking_8h_a01cb0ea4e71ee74ed3a7d996d819e7dc}} 
+\index{backtracking.h@{backtracking.h}!solveTSP@{solveTSP}}
+\index{solveTSP@{solveTSP}!backtracking.h@{backtracking.h}}
+\doxysubsubsection{\texorpdfstring{solveTSP()}{solveTSP()}}
+{\footnotesize\ttfamily void solve\+TSP (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Solves the TSP using backtracking. Calls the \textquotesingle{}tsp\+Backtracking\textquotesingle{} function to find the minimum distance and prints the solution as well as the execution time. 
+
+Time Complexity\+: O(V!) where V is the number of edges in the graph. Since this functions calls the \textquotesingle{}tsp\+Backtracking\textquotesingle{} function, it has the same time complexity. \mbox{\Hypertarget{backtracking_8h_a522c90fd85a2f924fad25b18ae833cc9}\label{backtracking_8h_a522c90fd85a2f924fad25b18ae833cc9}} 
+\index{backtracking.h@{backtracking.h}!tspBacktracking@{tspBacktracking}}
+\index{tspBacktracking@{tspBacktracking}!backtracking.h@{backtracking.h}}
+\doxysubsubsection{\texorpdfstring{tspBacktracking()}{tspBacktracking()}}
+{\footnotesize\ttfamily double tsp\+Backtracking (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ int $>$ \&}]{path,  }\item[{const std\+::vector$<$ bool $>$ \&}]{visited,  }\item[{double}]{current\+Distance }\end{DoxyParamCaption})}
+
+
+
+Recursive function that uses backtracking to explore all possible paths in the graph and computes the distance. 
+
+Time Complexity\+: O(V!) where V is the number of vertices in the graph. The function explores all possible paths in the graph. They can be represented as permutations of the vertices which corresponds to the time complexity
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & The current path being explored \\
+\hline
+{\em visited} & A boolean array that indicates whether a vertex is visited or not \\
+\hline
+{\em current\+Distance} & The current distance of the path being explored \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The minimum distance found 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{backtracking_8h_a3c2ae39ce2906ea0921096f416f80b96}\label{backtracking_8h_a3c2ae39ce2906ea0921096f416f80b96}} 
+\index{backtracking.h@{backtracking.h}!vertices@{vertices}}
+\index{vertices@{vertices}!backtracking.h@{backtracking.h}}
+\doxysubsubsection{\texorpdfstring{vertices}{vertices}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_vertex}{Vertex}}$>$ vertices}
+
+
+
+List of vertices in the graph. 
+

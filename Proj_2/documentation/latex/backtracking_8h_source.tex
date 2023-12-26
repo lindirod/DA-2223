@@ -1,0 +1,86 @@
+\hypertarget{backtracking_8h_source}{}\doxysection{backtracking.\+h}
+\mbox{\hyperlink{backtracking_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{csv_8h}{csv.h}}"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_vertex}{Vertex}}\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_vertex_a2e69697726190f50c7fc040fb1ddac7a}{id}};\ }
+\DoxyCodeLine{00020\ \ \ \ \ std::vector<EdgeData>\ \mbox{\hyperlink{struct_vertex_ac5d42ffe653fe04ff0a40ccd8abce54c}{adj}};\ \ \ }
+\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ std::vector<Vertex>\ \mbox{\hyperlink{backtracking_8h_a3c2ae39ce2906ea0921096f416f80b96}{vertices}};\ \ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{backtracking_8h_a28495925d38483e4e23110349f5c9bf4}{loadGraph}}(\textcolor{keyword}{const}\ std::string\&\ filename)\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ std::vector<EdgeData>\ graph\ =\ \mbox{\hyperlink{csv_8h_a08425e7cf4c8375ba0f079f68cbf5e55}{loadEdgeGraph}}(filename);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{int}\ numVertices\ =\ 0;}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ edge\ :\ graph)\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ numVertices\ =\ std::max(numVertices,\ std::max(edge.origin,\ edge.destination)\ +\ 1);}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{backtracking_8h_a3c2ae39ce2906ea0921096f416f80b96}{vertices}}.resize(numVertices);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ edge\ :\ graph)\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_edge_data}{EdgeData}}\ reverseEdge\ =\ \{edge.\mbox{\hyperlink{struct_edge_data_ae3ea53de1e92607875e256fa26e83ab8}{destination}},\ edge.origin,\ edge.distance\};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{backtracking_8h_a3c2ae39ce2906ea0921096f416f80b96}{vertices}}[edge.origin].adj.push\_back(edge);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{backtracking_8h_a3c2ae39ce2906ea0921096f416f80b96}{vertices}}[edge.destination].adj.push\_back(reverseEdge);}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{backtracking_8h_a522c90fd85a2f924fad25b18ae833cc9}{tspBacktracking}}(\textcolor{keyword}{const}\ std::vector<int>\&\ path,\ \textcolor{keyword}{const}\ std::vector<bool>\&\ visited,\ \textcolor{keywordtype}{double}\ currentDistance)\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{if}\ (path.size()\ ==\ \mbox{\hyperlink{backtracking_8h_a3c2ae39ce2906ea0921096f416f80b96}{vertices}}.size())\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ startVertex\ =\ path.front();}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ edge\ :\ \mbox{\hyperlink{backtracking_8h_a3c2ae39ce2906ea0921096f416f80b96}{vertices}}[path.back()].adj)\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edge.destination\ ==\ startVertex)\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ cycleDistance\ =\ currentDistance\ +\ edge.distance;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cycleDistance;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{double}\ minDistance\ =\ std::numeric\_limits<double>::max();}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ edge\ :\ \mbox{\hyperlink{backtracking_8h_a3c2ae39ce2906ea0921096f416f80b96}{vertices}}[path.back()].adj)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!visited[edge.destination])\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<int>\ newPath\ =\ path;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<bool>\ newVisited\ =\ visited;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ newPath.push\_back(edge.destination);}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ newVisited[edge.destination]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ newDistance\ =\ \mbox{\hyperlink{backtracking_8h_a522c90fd85a2f924fad25b18ae833cc9}{tspBacktracking}}(newPath,\ newVisited,\ currentDistance\ +\ edge.distance);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ minDistance\ =\ std::min(minDistance,\ newDistance);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{return}\ minDistance;}
+\DoxyCodeLine{00093\ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00102\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{backtracking_8h_a01cb0ea4e71ee74ed3a7d996d819e7dc}{solveTSP}}()\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ std::chrono::steady\_clock::time\_point\ startTime\ =\ std::chrono::steady\_clock::now();}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{double}\ minDistance\ =\ std::numeric\_limits<double>::max();}
+\DoxyCodeLine{00106\ \ \ \ \ std::vector<int>\ path\ =\ \{0\};}
+\DoxyCodeLine{00107\ \ \ \ \ std::vector<bool>\ visited(\mbox{\hyperlink{backtracking_8h_a3c2ae39ce2906ea0921096f416f80b96}{vertices}}.size(),\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00108\ \ \ \ \ visited[0]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ minDistance\ =\ \mbox{\hyperlink{backtracking_8h_a522c90fd85a2f924fad25b18ae833cc9}{tspBacktracking}}(path,\ visited,\ 0.0);}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ std::chrono::steady\_clock::time\_point\ endTime\ =\ std::chrono::steady\_clock::now();}
+\DoxyCodeLine{00113\ \ \ \ \ std::chrono::duration<double>\ duration\ =\ std::chrono::duration\_cast<std::chrono::duration<double>>(endTime\ -\/\ startTime);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}TSP\ Backtracking\ Solution:"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00116\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Distance:\ "{}}\ <<\ minDistance\ <<\ std::endl;}
+\DoxyCodeLine{00117\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Execution\ Time:\ "{}}\ <<\ duration.count()\ <<\ \textcolor{stringliteral}{"{}\ seconds"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00119\ \}}
+
+\end{DoxyCode}

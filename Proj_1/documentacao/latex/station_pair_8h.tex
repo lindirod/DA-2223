@@ -1,0 +1,51 @@
+\hypertarget{station_pair_8h}{}\doxysection{station\+Pair.\+h File Reference}
+\label{station_pair_8h}\index{stationPair.h@{stationPair.h}}
+
+
+This file defines the \mbox{\hyperlink{struct_station_pair}{Station\+Pair}} struct that represents a pair of two stations with a maximum capacity.  
+
+
+{\ttfamily \#include $<$string$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_station_pair}{Station\+Pair}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{station_pair_8h_abdad73a3627a40e959bdd450e7801930}{compare\+Station\+Pairs}} (const \mbox{\hyperlink{struct_station_pair}{Station\+Pair}} \&a, const \mbox{\hyperlink{struct_station_pair}{Station\+Pair}} \&b)
+\begin{DoxyCompactList}\small\item\em Compares two Station\+Pairs based on their maximum capacity. The compare\+Station\+Pairs function has a time complexity of O(1), which means it takes constant time to execute. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file defines the \mbox{\hyperlink{struct_station_pair}{Station\+Pair}} struct that represents a pair of two stations with a maximum capacity. 
+
+\begin{DoxyDate}{Date}
+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{station_pair_8h_abdad73a3627a40e959bdd450e7801930}\label{station_pair_8h_abdad73a3627a40e959bdd450e7801930}} 
+\index{stationPair.h@{stationPair.h}!compareStationPairs@{compareStationPairs}}
+\index{compareStationPairs@{compareStationPairs}!stationPair.h@{stationPair.h}}
+\doxysubsubsection{\texorpdfstring{compareStationPairs()}{compareStationPairs()}}
+{\footnotesize\ttfamily bool compare\+Station\+Pairs (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_station_pair}{Station\+Pair}} \&}]{a,  }\item[{const \mbox{\hyperlink{struct_station_pair}{Station\+Pair}} \&}]{b }\end{DoxyParamCaption})}
+
+
+
+Compares two Station\+Pairs based on their maximum capacity. The compare\+Station\+Pairs function has a time complexity of O(1), which means it takes constant time to execute. 
+
+The reason for this is that the function performs a simple comparison of the maximum capacity values of two \mbox{\hyperlink{struct_station_pair}{Station\+Pair}} objects, and the comparison operation itself takes constant time. It does not involve any loops or other operations that depend on the size of the input, so the time complexity remains constant.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first \mbox{\hyperlink{struct_station_pair}{Station\+Pair}} to compare. \\
+\hline
+{\em b} & The second \mbox{\hyperlink{struct_station_pair}{Station\+Pair}} to compare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the maximum capacity of \mbox{\hyperlink{struct_station_pair}{Station\+Pair}} a is greater than that of \mbox{\hyperlink{struct_station_pair}{Station\+Pair}} b, false otherwise. 
+\end{DoxyReturn}

@@ -1,0 +1,49 @@
+\hypertarget{most_trains_at_8h_source}{}\doxysection{most\+Trains\+At.\+h}
+\mbox{\hyperlink{most_trains_at_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ MOST\_TRAINS\_AT\_H}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ MOST\_TRAINS\_AT\_H}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{segment_8h}{segment.h}}"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{stations_8h}{stations.h}}"{}}}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{most_trains_at_8h_aa6bf18a6fbb923c278343db886a9fca0}{mostTrainsAt}}(\textcolor{keyword}{const}\ std::vector<Station>\&\ stations,\ \textcolor{keyword}{const}\ std::vector<Segment>\&\ segments,\ \textcolor{keyword}{const}\ std::string\&\ input\_station)\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \textcolor{comment}{//\ Build\ a\ map\ of\ station\ -\/>\ set\ of\ connected\ stations}}
+\DoxyCodeLine{00038\ \ \ \ \ std::unordered\_map<std::string,\ std::vector<std::string>>\ connections;}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ segment\ :\ segments)\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ connections[segment.stationA].push\_back(segment.stationB);}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ connections[segment.stationB].push\_back(segment.stationA);\ }
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//\ Check\ if\ input\ station\ exists\ in\ the\ connections\ map}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{if}\ (connections.find(input\_station)\ ==\ connections.end())\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Station\ not\ found\ in\ network."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//\ Calculate\ the\ maximum\ number\ of\ trains\ that\ can\ simultaneously\ arrive\ at\ the\ input\ station}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{int}\ station\_max\_trains\ =\ 0;}
+\DoxyCodeLine{00052\ \ \ \ \ std::unordered\_map<std::string,\ int>\ segment\_max\_trains;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ connected\_station\ :\ connections[input\_station])\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ segment\ :\ segments)\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((segment.stationA\ ==\ input\_station\ \&\&\ segment.stationB\ ==\ connected\_station)}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ (segment.stationA\ ==\ connected\_station\ \&\&\ segment.stationB\ ==\ input\_station))\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ segment\_max\_trains[connected\_station]\ =\ std::max(segment\_max\_trains[connected\_station],\ segment.capacity);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ pair\ :\ segment\_max\_trains)\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ station\_max\_trains\ +=\ pair.second;}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Maximum\ number\ of\ trains\ that\ can\ simultaneously\ arrive\ at\ station\ "{}}\ <<\ input\_station\ <<\ \textcolor{stringliteral}{"{}:\ "{}}\ <<\ station\_max\_trains\ <<\ std::endl;}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00067\ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MOST\_TRAINS\_AT\_H}}
+
+\end{DoxyCode}

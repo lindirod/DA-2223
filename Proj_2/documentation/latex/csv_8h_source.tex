@@ -1,0 +1,215 @@
+\hypertarget{csv_8h_source}{}\doxysection{csv.\+h}
+\mbox{\hyperlink{csv_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ CSV\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ CSV\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_tourism_data}{TourismData}}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_tourism_data_a7f9d0889e8c0a9c916bb66677ed2b3f1}{origin}};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_tourism_data_a263c7108a1df8915609189d6f449d442}{destination}};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_tourism_data_a481499e08642ea60d612975845a2db78}{distance}};}
+\DoxyCodeLine{00020\ \ \ \ \ std::string\ \mbox{\hyperlink{struct_tourism_data_a56e77a52f6e75d763e36f0c9eaea0d74}{labelOrigin}};}
+\DoxyCodeLine{00021\ \ \ \ \ std::string\ \mbox{\hyperlink{struct_tourism_data_af7f6b657735dc65e1ca35aaed7c115f6}{labelDestination}};}
+\DoxyCodeLine{00022\ \};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_shipping_data}{ShippingData}}\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_shipping_data_aa5881963c7cb926ab563a5809dbc234a}{origin}};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_shipping_data_a9f520bde91bdc4a34a86763ed51f016c}{destination}};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_shipping_data_a510e5b8074132b0e2823f99760db2c3b}{distance}};}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_stadium_data}{StadiumData}}\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_stadium_data_a85460c7c8183d9f00e93c0695dff9f00}{origin}};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_stadium_data_ae443694cd55998236a156e1f6419c61e}{destination}};}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_stadium_data_ac7de342025711172e988fba85b45c530}{distance}};}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_edge_data}{EdgeData}}\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_edge_data_a7f06bcab83d6e9e26345758ea4ebebfb}{origin}};}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_edge_data_ae3ea53de1e92607875e256fa26e83ab8}{destination}};}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_edge_data_ae7a677e82c6ee58c268aaca78a946fff}{distance}};}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_node_data}{NodeData}}\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_node_data_adbfa53256b3de6517e6510950b71a28d}{id}};}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_node_data_af61a60c7284527992081403962a3f419}{longitude}};}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_node_data_ad5c7a03d71a29132a2637d3f75fdb405}{latitude}};}
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00066\ std::vector<TourismData>\ \mbox{\hyperlink{csv_8h_a1e9358503c5b7702605616584887f8f3}{loadTourismGraph}}(\textcolor{keyword}{const}\ std::string\&\ filename)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ std::vector<TourismData>\ graph;}
+\DoxyCodeLine{00068\ \ \ \ \ std::ifstream\ file(filename);}
+\DoxyCodeLine{00069\ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00070\ \ \ \ \ std::getline(file,\ line);\ \textcolor{comment}{//\ Skip\ the\ header\ line}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ std::istringstream\ iss(line);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ std::string\ str;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_tourism_data}{TourismData}}\ data;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ std::getline(iss,\ str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_tourism_data_a7f9d0889e8c0a9c916bb66677ed2b3f1}{origin}}\ =\ std::stoi(str);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ std::getline(iss,\ str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_tourism_data_a263c7108a1df8915609189d6f449d442}{destination}}\ =\ std::stoi(str);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ std::getline(iss,\ str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_tourism_data_a481499e08642ea60d612975845a2db78}{distance}}\ =\ std::stod(str);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ std::getline(iss,\ data.\mbox{\hyperlink{struct_tourism_data_a56e77a52f6e75d763e36f0c9eaea0d74}{labelOrigin}},\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ std::getline(iss,\ data.\mbox{\hyperlink{struct_tourism_data_af7f6b657735dc65e1ca35aaed7c115f6}{labelDestination}});}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ graph.push\_back(data);}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ file.close();}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{return}\ graph;}
+\DoxyCodeLine{00094\ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00102\ std::vector<ShippingData>\ \mbox{\hyperlink{csv_8h_a75b42b1487d23d87abeef8a8905c1e53}{loadShippingGraph}}(\textcolor{keyword}{const}\ std::string\&\ filename)\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ std::vector<ShippingData>\ graph;}
+\DoxyCodeLine{00104\ \ \ \ \ std::ifstream\ file(filename);}
+\DoxyCodeLine{00105\ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00106\ \ \ \ \ std::getline(file,\ line);\ \textcolor{comment}{//\ Skip\ the\ header\ line}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ std::istringstream\ iss(line);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ std::string\ str;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_shipping_data}{ShippingData}}\ data;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ std::getline(iss,\ str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_shipping_data_aa5881963c7cb926ab563a5809dbc234a}{origin}}\ =\ std::stoi(str);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ std::getline(iss,\ str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_shipping_data_a9f520bde91bdc4a34a86763ed51f016c}{destination}}\ =\ std::stoi(str);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ std::getline(iss,\ str);}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_shipping_data_a510e5b8074132b0e2823f99760db2c3b}{distance}}\ =\ std::stod(str);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ graph.push\_back(data);}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ file.close();}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{return}\ graph;}
+\DoxyCodeLine{00127\ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00135\ std::vector<StadiumData>\ \mbox{\hyperlink{csv_8h_aa4b0fc61c4e61dd69091b6d43e68b1d0}{loadStadiumsGraph}}(\textcolor{keyword}{const}\ std::string\&\ filename)\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ std::vector<StadiumData>\ graph;}
+\DoxyCodeLine{00137\ \ \ \ \ std::ifstream\ file(filename);}
+\DoxyCodeLine{00138\ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00139\ \ \ \ \ std::getline(file,\ line);\ \textcolor{comment}{//\ Skip\ the\ header\ line}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ std::istringstream\ iss(line);}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ std::string\ str;}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_stadium_data}{StadiumData}}\ data;}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ std::getline(iss,\ str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_stadium_data_a85460c7c8183d9f00e93c0695dff9f00}{origin}}\ =\ std::stoi(str);}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ std::getline(iss,\ str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_stadium_data_ae443694cd55998236a156e1f6419c61e}{destination}}\ =\ std::stoi(str);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ std::getline(iss,\ str);}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_stadium_data_ac7de342025711172e988fba85b45c530}{distance}}\ =\ std::stod(str);}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ graph.push\_back(data);}
+\DoxyCodeLine{00156\ \ \ \ \ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ file.close();}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{return}\ graph;}
+\DoxyCodeLine{00160\ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00168\ std::vector<EdgeData>\ \mbox{\hyperlink{csv_8h_a08425e7cf4c8375ba0f079f68cbf5e55}{loadEdgeGraph}}(\textcolor{keyword}{const}\ std::string\&\ filename)\ \{}
+\DoxyCodeLine{00169\ \ \ \ \ std::vector<EdgeData>\ graph;}
+\DoxyCodeLine{00170\ \ \ \ \ std::ifstream\ file(filename);}
+\DoxyCodeLine{00171\ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00172\ \ \ \ \ std::getline(file,\ line);\ \textcolor{comment}{//\ Skip\ the\ header\ line}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ std::istringstream\ iss(line);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ std::string\ str;}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_edge_data}{EdgeData}}\ data;}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ std::getline(iss,\ str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_edge_data_a7f06bcab83d6e9e26345758ea4ebebfb}{origin}}\ =\ std::stoi(str);}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ std::getline(iss,\ str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_edge_data_ae3ea53de1e92607875e256fa26e83ab8}{destination}}\ =\ std::stoi(str);}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ std::getline(iss,\ str);}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_edge_data_ae7a677e82c6ee58c268aaca78a946fff}{distance}}\ =\ std::stod(str);}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ graph.push\_back(data);}
+\DoxyCodeLine{00189\ \ \ \ \ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ file.close();}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keywordflow}{return}\ graph;}
+\DoxyCodeLine{00193\ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00201\ std::vector<NodeData>\ \mbox{\hyperlink{csv_8h_a8eb5c425fcecbb1d4069f99cb51fc979}{loadNodesGraph}}(\textcolor{keyword}{const}\ std::string\&\ filename)\ \{}
+\DoxyCodeLine{00202\ \ \ \ \ std::vector<NodeData>\ graph;}
+\DoxyCodeLine{00203\ \ \ \ \ std::ifstream\ file(filename);}
+\DoxyCodeLine{00204\ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00205\ \ \ \ \ std::getline(file,\ line);\ \textcolor{comment}{//\ Skip\ the\ header\ line}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ std::istringstream\ iss(line);}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ std::string\ str;}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_node_data}{NodeData}}\ data;}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ std::getline(iss,\ str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_node_data_adbfa53256b3de6517e6510950b71a28d}{id}}\ =\ std::stoi(str);}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ std::getline(iss,\ str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_node_data_af61a60c7284527992081403962a3f419}{longitude}}\ =\ std::stod(str);}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ std::getline(iss,\ str);}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_node_data_ad5c7a03d71a29132a2637d3f75fdb405}{latitude}}\ =\ std::stod(str);}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ graph.push\_back(data);}
+\DoxyCodeLine{00222\ \ \ \ \ \}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \ \ \ \ file.close();}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordflow}{return}\ graph;}
+\DoxyCodeLine{00226\ \}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00234\ std::vector<EdgeData>\ \mbox{\hyperlink{csv_8h_a2890c4fe22902f4dbda14cb018384e37}{loadExtraMediumGraph}}(\textcolor{keyword}{const}\ std::string\&\ filename)\ \{}
+\DoxyCodeLine{00235\ \ \ \ \ std::vector<EdgeData>\ graph;}
+\DoxyCodeLine{00236\ \ \ \ \ std::ifstream\ file(filename);}
+\DoxyCodeLine{00237\ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \ \ std::string\ nodeCountStr\ =\ filename.substr(filename.find(\textcolor{stringliteral}{"{}\_"{}})\ +\ 1);}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keywordtype}{int}\ numNodes\ =\ std::stoi(nodeCountStr);}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ std::istringstream\ iss(line);}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ std::string\ str;}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_edge_data}{EdgeData}}\ data;}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ std::getline(iss,\ str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_edge_data_a7f06bcab83d6e9e26345758ea4ebebfb}{origin}}\ =\ std::stoi(str);}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ std::getline(iss,\ str,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_edge_data_ae3ea53de1e92607875e256fa26e83ab8}{destination}}\ =\ std::stoi(str);}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ std::getline(iss,\ str);}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ data.\mbox{\hyperlink{struct_edge_data_ae7a677e82c6ee58c268aaca78a946fff}{distance}}\ =\ std::stod(str);}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ graph.push\_back(data);}
+\DoxyCodeLine{00257\ \ \ \ \ \}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \ \ file.close();}
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keywordflow}{return}\ graph;}
+\DoxyCodeLine{00261\ \}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ CSV\_H}}
+
+\end{DoxyCode}

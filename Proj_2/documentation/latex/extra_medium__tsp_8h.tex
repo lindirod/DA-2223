@@ -1,0 +1,83 @@
+\hypertarget{extra_medium__tsp_8h}{}\doxysection{extra\+Medium\+\_\+tsp.\+h File Reference}
+\label{extra_medium__tsp_8h}\index{extraMedium\_tsp.h@{extraMedium\_tsp.h}}
+
+
+Code for solving the Traveling Salesman Problem (TSP) using Triangular Approximation Algorithm for the extra medium-\/size graphs -\/ 4.\+2.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include \char`\"{}csv.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{extra_medium__tsp_8h_aed386a138cc5b37be580297b79140eda}{find\+Nearest\+Neighbor}} (const std\+::vector$<$ double $>$ \&distances, const std\+::vector$<$ bool $>$ \&visited)
+\begin{DoxyCompactList}\small\item\em Find the nearest unvisited neighbor from a given set of distances. This function finds the nearest unvisited neighbor from a given set of distances. It iterates over the distances, looking for the minimum distance that has not been visited yet. The time complexity of this function is O(n), where n is the number of nodes. \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{extra_medium__tsp_8h_a9cf24178512e59d1e72b946454b5657a}{triangular\+Approximation}} (const std\+::vector$<$ \mbox{\hyperlink{struct_edge_data}{Edge\+Data}} $>$ \&edges, int num\+Nodes)
+\begin{DoxyCompactList}\small\item\em Perform triangular approximation to solve the Traveling Salesman Problem (TSP). This function performs the triangular approximation algorithm to solve the Traveling Salesman Problem (TSP). It takes a set of edges representing the distances between nodes and the number of nodes in the graph. It creates a distance matrix based on the edges, initializes the visited vector, and starts with an initial node. It then iteratively finds the nearest unvisited neighbor and adds it to the tour until all nodes are visited. Finally, it completes the tour by returning to the initial node. The time complexity of this function is O(n$^\wedge$2), where n is the number of nodes. The nested loop that initializes the distance matrix has a time complexity of O(n$^\wedge$2), and the main loop that finds the nearest neighbor runs for n iterations. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{extra_medium__tsp_8h_a57271224c13d1ca928899c4da32d6346}{solve\+TSPExtra}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Solve the Traveling Salesman Problem (TSP) using triangular approximation. This function solves the Traveling Salesman Problem (TSP) using the triangular approximation algorithm. It loads the edge graph from the specified CSV file, extracts the number of nodes from the filename, and applies the triangular approximation algorithm to find the tour. It then calculates the total distance of the tour and prints the tour and the total distance. The time complexity of this function depends on the complexity of the triangular\+Approximation function, which is O(n$^\wedge$2), where n is the number of nodes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Code for solving the Traveling Salesman Problem (TSP) using Triangular Approximation Algorithm for the extra medium-\/size graphs -\/ 4.\+2. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{extra_medium__tsp_8h_aed386a138cc5b37be580297b79140eda}\label{extra_medium__tsp_8h_aed386a138cc5b37be580297b79140eda}} 
+\index{extraMedium\_tsp.h@{extraMedium\_tsp.h}!findNearestNeighbor@{findNearestNeighbor}}
+\index{findNearestNeighbor@{findNearestNeighbor}!extraMedium\_tsp.h@{extraMedium\_tsp.h}}
+\doxysubsubsection{\texorpdfstring{findNearestNeighbor()}{findNearestNeighbor()}}
+{\footnotesize\ttfamily int find\+Nearest\+Neighbor (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ double $>$ \&}]{distances,  }\item[{const std\+::vector$<$ bool $>$ \&}]{visited }\end{DoxyParamCaption})}
+
+
+
+Find the nearest unvisited neighbor from a given set of distances. This function finds the nearest unvisited neighbor from a given set of distances. It iterates over the distances, looking for the minimum distance that has not been visited yet. The time complexity of this function is O(n), where n is the number of nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em distances} & The distances between nodes. \\
+\hline
+{\em visited} & A vector indicating which nodes have been visited. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the nearest unvisited neighbor. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{extra_medium__tsp_8h_a57271224c13d1ca928899c4da32d6346}\label{extra_medium__tsp_8h_a57271224c13d1ca928899c4da32d6346}} 
+\index{extraMedium\_tsp.h@{extraMedium\_tsp.h}!solveTSPExtra@{solveTSPExtra}}
+\index{solveTSPExtra@{solveTSPExtra}!extraMedium\_tsp.h@{extraMedium\_tsp.h}}
+\doxysubsubsection{\texorpdfstring{solveTSPExtra()}{solveTSPExtra()}}
+{\footnotesize\ttfamily void solve\+TSPExtra (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})}
+
+
+
+Solve the Traveling Salesman Problem (TSP) using triangular approximation. This function solves the Traveling Salesman Problem (TSP) using the triangular approximation algorithm. It loads the edge graph from the specified CSV file, extracts the number of nodes from the filename, and applies the triangular approximation algorithm to find the tour. It then calculates the total distance of the tour and prints the tour and the total distance. The time complexity of this function depends on the complexity of the triangular\+Approximation function, which is O(n$^\wedge$2), where n is the number of nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the file containing the edge graph data. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{extra_medium__tsp_8h_a9cf24178512e59d1e72b946454b5657a}\label{extra_medium__tsp_8h_a9cf24178512e59d1e72b946454b5657a}} 
+\index{extraMedium\_tsp.h@{extraMedium\_tsp.h}!triangularApproximation@{triangularApproximation}}
+\index{triangularApproximation@{triangularApproximation}!extraMedium\_tsp.h@{extraMedium\_tsp.h}}
+\doxysubsubsection{\texorpdfstring{triangularApproximation()}{triangularApproximation()}}
+{\footnotesize\ttfamily std\+::vector$<$ int $>$ triangular\+Approximation (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{struct_edge_data}{Edge\+Data}} $>$ \&}]{edges,  }\item[{int}]{num\+Nodes }\end{DoxyParamCaption})}
+
+
+
+Perform triangular approximation to solve the Traveling Salesman Problem (TSP). This function performs the triangular approximation algorithm to solve the Traveling Salesman Problem (TSP). It takes a set of edges representing the distances between nodes and the number of nodes in the graph. It creates a distance matrix based on the edges, initializes the visited vector, and starts with an initial node. It then iteratively finds the nearest unvisited neighbor and adds it to the tour until all nodes are visited. Finally, it completes the tour by returning to the initial node. The time complexity of this function is O(n$^\wedge$2), where n is the number of nodes. The nested loop that initializes the distance matrix has a time complexity of O(n$^\wedge$2), and the main loop that finds the nearest neighbor runs for n iterations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em edges} & The edges representing the distances between nodes. \\
+\hline
+{\em num\+Nodes} & The number of nodes in the graph. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The tour representing the order of nodes to visit. 
+\end{DoxyReturn}

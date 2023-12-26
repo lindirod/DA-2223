@@ -1,0 +1,51 @@
+\hypertarget{budgets_8h}{}\doxysection{budgets.\+h File Reference}
+\label{budgets_8h}\index{budgets.h@{budgets.h}}
+
+
+This file contains the declarations of the \mbox{\hyperlink{struct_budget}{Budget}} class.  
+
+
+{\ttfamily \#include $<$string$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_budget}{Budget}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{budgets_8h_a97eddb821f64ae498b61747fe3321b14}{compare\+Mun\+Dis}} (const \mbox{\hyperlink{struct_budget}{Budget}} \&a, const \mbox{\hyperlink{struct_budget}{Budget}} \&b)
+\begin{DoxyCompactList}\small\item\em Boolean function that sorts \textquotesingle{}\mbox{\hyperlink{struct_budget}{Budget}}\textquotesingle{} objects in descending order by municipalities and districts based on the number os stations they have. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains the declarations of the \mbox{\hyperlink{struct_budget}{Budget}} class. 
+
+\begin{DoxyDate}{Date}
+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{budgets_8h_a97eddb821f64ae498b61747fe3321b14}\label{budgets_8h_a97eddb821f64ae498b61747fe3321b14}} 
+\index{budgets.h@{budgets.h}!compareMunDis@{compareMunDis}}
+\index{compareMunDis@{compareMunDis}!budgets.h@{budgets.h}}
+\doxysubsubsection{\texorpdfstring{compareMunDis()}{compareMunDis()}}
+{\footnotesize\ttfamily bool compare\+Mun\+Dis (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_budget}{Budget}} \&}]{a,  }\item[{const \mbox{\hyperlink{struct_budget}{Budget}} \&}]{b }\end{DoxyParamCaption})}
+
+
+
+Boolean function that sorts \textquotesingle{}\mbox{\hyperlink{struct_budget}{Budget}}\textquotesingle{} objects in descending order by municipalities and districts based on the number os stations they have. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & \\
+\hline
+{\em b} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the counter of stations of a is greater than the counter of stations of b 
+
+false otherwise 
+\end{DoxyReturn}

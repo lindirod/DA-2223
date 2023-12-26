@@ -1,0 +1,148 @@
+\hypertarget{real__world__tsp_8h}{}\doxysection{real\+\_\+world\+\_\+tsp.\+h File Reference}
+\label{real__world__tsp_8h}\index{real\_world\_tsp.h@{real\_world\_tsp.h}}
+
+
+Code for solving the Traveling Salesman Problem (TSP) using Triangular Approximation Algorithm for the real-\/world graphs -\/ 4.\+2.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}csv.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{real__world__tsp_8h_a8e8b5d1633dfb57d0d6056850bdd710c}{to\+Radians}} (double degrees)
+\begin{DoxyCompactList}\small\item\em Convert degrees to radians. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{real__world__tsp_8h_ae8b1f9c1793fb1626fb141b9fdf126e2}{haversine\+Distance}} (double lat1, double lon1, double lat2, double lon2)
+\begin{DoxyCompactList}\small\item\em Calculate the Haversine distance between two points given their latitude and longitude. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{real__world__tsp_8h_a92854e7fd4f8ada145767e23de09e193}{find\+Nearest\+Neighbor}} (int current\+Node, const std\+::vector$<$ bool $>$ \&visited, const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&distances)
+\begin{DoxyCompactList}\small\item\em Find the nearest neighbor node not visited yet. The time complexity of this function is O(n), where n is the number of nodes. \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{real__world__tsp_8h_a80f948c4b96fc273e644a7ca26da16c2}{triangular\+Approximation}} (const std\+::vector$<$ \mbox{\hyperlink{struct_node_data}{Node\+Data}} $>$ \&nodes, const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&distances)
+\begin{DoxyCompactList}\small\item\em Perform the Triangular Approximation Heuristic algorithm. The time complexity of this function is O(n$^\wedge$2), where n is the number of nodes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{real__world__tsp_8h_a53627fafaad549299bde205f2e2e624b}{solve\+TSPreal}} (const std\+::string \&nodes\+File, const std\+::string \&edges\+File)
+\begin{DoxyCompactList}\small\item\em Solve TSP using the Triangular Approximation Heuristic for real-\/world graphs. The time complexity of this function depends on the number of nodes and edges in the input graph. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const double \mbox{\hyperlink{real__world__tsp_8h_aa3bcd0102edc51cffe538cf6519da620}{EARTH\+\_\+\+RADIUS\+\_\+\+KM}} = 6371.\+0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Code for solving the Traveling Salesman Problem (TSP) using Triangular Approximation Algorithm for the real-\/world graphs -\/ 4.\+2. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{real__world__tsp_8h_a92854e7fd4f8ada145767e23de09e193}\label{real__world__tsp_8h_a92854e7fd4f8ada145767e23de09e193}} 
+\index{real\_world\_tsp.h@{real\_world\_tsp.h}!findNearestNeighbor@{findNearestNeighbor}}
+\index{findNearestNeighbor@{findNearestNeighbor}!real\_world\_tsp.h@{real\_world\_tsp.h}}
+\doxysubsubsection{\texorpdfstring{findNearestNeighbor()}{findNearestNeighbor()}}
+{\footnotesize\ttfamily int find\+Nearest\+Neighbor (\begin{DoxyParamCaption}\item[{int}]{current\+Node,  }\item[{const std\+::vector$<$ bool $>$ \&}]{visited,  }\item[{const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&}]{distances }\end{DoxyParamCaption})}
+
+
+
+Find the nearest neighbor node not visited yet. The time complexity of this function is O(n), where n is the number of nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Node} & The current node. \\
+\hline
+{\em visited} & A vector indicating whether a node has been visited. \\
+\hline
+{\em distances} & The matrix of distances between nodes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the nearest neighbor. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{real__world__tsp_8h_ae8b1f9c1793fb1626fb141b9fdf126e2}\label{real__world__tsp_8h_ae8b1f9c1793fb1626fb141b9fdf126e2}} 
+\index{real\_world\_tsp.h@{real\_world\_tsp.h}!haversineDistance@{haversineDistance}}
+\index{haversineDistance@{haversineDistance}!real\_world\_tsp.h@{real\_world\_tsp.h}}
+\doxysubsubsection{\texorpdfstring{haversineDistance()}{haversineDistance()}}
+{\footnotesize\ttfamily double haversine\+Distance (\begin{DoxyParamCaption}\item[{double}]{lat1,  }\item[{double}]{lon1,  }\item[{double}]{lat2,  }\item[{double}]{lon2 }\end{DoxyParamCaption})}
+
+
+
+Calculate the Haversine distance between two points given their latitude and longitude. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lat1} & The latitude of the first point. \\
+\hline
+{\em lon1} & The longitude of the first point. \\
+\hline
+{\em lat2} & The latitude of the second point. \\
+\hline
+{\em lon2} & The longitude of the second point. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The Haversine distance between the two points. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{real__world__tsp_8h_a53627fafaad549299bde205f2e2e624b}\label{real__world__tsp_8h_a53627fafaad549299bde205f2e2e624b}} 
+\index{real\_world\_tsp.h@{real\_world\_tsp.h}!solveTSPreal@{solveTSPreal}}
+\index{solveTSPreal@{solveTSPreal}!real\_world\_tsp.h@{real\_world\_tsp.h}}
+\doxysubsubsection{\texorpdfstring{solveTSPreal()}{solveTSPreal()}}
+{\footnotesize\ttfamily void solve\+TSPreal (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{nodes\+File,  }\item[{const std\+::string \&}]{edges\+File }\end{DoxyParamCaption})}
+
+
+
+Solve TSP using the Triangular Approximation Heuristic for real-\/world graphs. The time complexity of this function depends on the number of nodes and edges in the input graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodes\+File} & The name of the CSV file containing the node data. \\
+\hline
+{\em edges\+File} & The name of the CSV file containing the edge data. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{real__world__tsp_8h_a8e8b5d1633dfb57d0d6056850bdd710c}\label{real__world__tsp_8h_a8e8b5d1633dfb57d0d6056850bdd710c}} 
+\index{real\_world\_tsp.h@{real\_world\_tsp.h}!toRadians@{toRadians}}
+\index{toRadians@{toRadians}!real\_world\_tsp.h@{real\_world\_tsp.h}}
+\doxysubsubsection{\texorpdfstring{toRadians()}{toRadians()}}
+{\footnotesize\ttfamily double to\+Radians (\begin{DoxyParamCaption}\item[{double}]{degrees }\end{DoxyParamCaption})}
+
+
+
+Convert degrees to radians. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em degrees} & The angle in degrees. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The angle in radians. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{real__world__tsp_8h_a80f948c4b96fc273e644a7ca26da16c2}\label{real__world__tsp_8h_a80f948c4b96fc273e644a7ca26da16c2}} 
+\index{real\_world\_tsp.h@{real\_world\_tsp.h}!triangularApproximation@{triangularApproximation}}
+\index{triangularApproximation@{triangularApproximation}!real\_world\_tsp.h@{real\_world\_tsp.h}}
+\doxysubsubsection{\texorpdfstring{triangularApproximation()}{triangularApproximation()}}
+{\footnotesize\ttfamily std\+::vector$<$ int $>$ triangular\+Approximation (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{struct_node_data}{Node\+Data}} $>$ \&}]{nodes,  }\item[{const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&}]{distances }\end{DoxyParamCaption})}
+
+
+
+Perform the Triangular Approximation Heuristic algorithm. The time complexity of this function is O(n$^\wedge$2), where n is the number of nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodes} & The vector of node data. \\
+\hline
+{\em distances} & The matrix of distances between nodes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector representing the tour. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{real__world__tsp_8h_aa3bcd0102edc51cffe538cf6519da620}\label{real__world__tsp_8h_aa3bcd0102edc51cffe538cf6519da620}} 
+\index{real\_world\_tsp.h@{real\_world\_tsp.h}!EARTH\_RADIUS\_KM@{EARTH\_RADIUS\_KM}}
+\index{EARTH\_RADIUS\_KM@{EARTH\_RADIUS\_KM}!real\_world\_tsp.h@{real\_world\_tsp.h}}
+\doxysubsubsection{\texorpdfstring{EARTH\_RADIUS\_KM}{EARTH\_RADIUS\_KM}}
+{\footnotesize\ttfamily const double EARTH\+\_\+\+RADIUS\+\_\+\+KM = 6371.\+0}
+

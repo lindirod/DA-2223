@@ -1,0 +1,54 @@
+\hypertarget{get_min_cost_8h}{}\doxysection{get\+Min\+Cost.\+h File Reference}
+\label{get_min_cost_8h}\index{getMinCost.h@{getMinCost.h}}
+
+
+This file contains the definition of the get\+Min\+Cost function.  
+
+
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$queue$>$}\newline
+{\ttfamily \#include $<$climits$>$}\newline
+{\ttfamily \#include \char`\"{}stations.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}segment.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}get\+Max\+Capacity.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{get_min_cost_8h_af8c1b9fbd624a3aa871cd15b7fa30217}{get\+Min\+Cost}} (string stationA, string stationB, const vector$<$ \mbox{\hyperlink{struct_station}{Station}} $>$ \&stations, const vector$<$ \mbox{\hyperlink{struct_segment}{Segment}} $>$ \&segments)
+\begin{DoxyCompactList}\small\item\em Function to get the minimum cost for the maximum flow between two stations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains the definition of the get\+Min\+Cost function. 
+
+\begin{DoxyDate}{Date}
+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{get_min_cost_8h_af8c1b9fbd624a3aa871cd15b7fa30217}\label{get_min_cost_8h_af8c1b9fbd624a3aa871cd15b7fa30217}} 
+\index{getMinCost.h@{getMinCost.h}!getMinCost@{getMinCost}}
+\index{getMinCost@{getMinCost}!getMinCost.h@{getMinCost.h}}
+\doxysubsubsection{\texorpdfstring{getMinCost()}{getMinCost()}}
+{\footnotesize\ttfamily int get\+Min\+Cost (\begin{DoxyParamCaption}\item[{string}]{stationA,  }\item[{string}]{stationB,  }\item[{const vector$<$ \mbox{\hyperlink{struct_station}{Station}} $>$ \&}]{stations,  }\item[{const vector$<$ \mbox{\hyperlink{struct_segment}{Segment}} $>$ \&}]{segments }\end{DoxyParamCaption})}
+
+
+
+Function to get the minimum cost for the maximum flow between two stations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stationA} & -\/ source station \\
+\hline
+{\em stationB} & -\/ destination station \\
+\hline
+{\em stations} & -\/ vector of \textquotesingle{}\mbox{\hyperlink{struct_station}{Station}}\textquotesingle{} objects that describes all the stations in the network \\
+\hline
+{\em segments} & -\/ vector of \textquotesingle{}\mbox{\hyperlink{struct_segment}{Segment}}\textquotesingle{} objects that describes all the segments (connections) between the stations \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+minimum cost per unit of flow for the maximum flow 
+\end{DoxyReturn}

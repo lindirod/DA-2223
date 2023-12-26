@@ -1,0 +1,51 @@
+\hypertarget{larger_budget_8h}{}\doxysection{larger\+Budget.\+h File Reference}
+\label{larger_budget_8h}\index{largerBudget.h@{largerBudget.h}}
+
+
+This file contains the definition and implementation of the larger\+Budget function.  
+
+
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$queue$>$}\newline
+{\ttfamily \#include $<$climits$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include \char`\"{}stations.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}segment.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}budgets.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ \mbox{\hyperlink{struct_budget}{Budget}} $>$ \mbox{\hyperlink{larger_budget_8h_a513f9a33eb9184fed55e56ec8d643c1f}{larger\+Budget}} (vector$<$ \mbox{\hyperlink{struct_station}{Station}} $>$ \&stations, int k)
+\begin{DoxyCompactList}\small\item\em Function to find the top-\/k municipalities and districts to assign larger budgets for the purchasing and maintenence of trains, based on the number of train stations in each municipality and district. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains the definition and implementation of the larger\+Budget function. 
+
+\begin{DoxyDate}{Date}
+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{larger_budget_8h_a513f9a33eb9184fed55e56ec8d643c1f}\label{larger_budget_8h_a513f9a33eb9184fed55e56ec8d643c1f}} 
+\index{largerBudget.h@{largerBudget.h}!largerBudget@{largerBudget}}
+\index{largerBudget@{largerBudget}!largerBudget.h@{largerBudget.h}}
+\doxysubsubsection{\texorpdfstring{largerBudget()}{largerBudget()}}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{struct_budget}{Budget}} $>$ larger\+Budget (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_station}{Station}} $>$ \&}]{stations,  }\item[{int}]{k }\end{DoxyParamCaption})}
+
+
+
+Function to find the top-\/k municipalities and districts to assign larger budgets for the purchasing and maintenence of trains, based on the number of train stations in each municipality and district. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stations} & -\/ vector of \textquotesingle{}\mbox{\hyperlink{struct_station}{Station}}\textquotesingle{} objects representing all train stations in a given region. \\
+\hline
+{\em k} & -\/ number of top municipalities and districts to be returned. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector$<$\+Budget$>$ -\/ A vector of \textquotesingle{}\mbox{\hyperlink{struct_budget}{Budget}}\textquotesingle{} objects representing the top-\/k municipalities and districts with the highest number of train stations. 
+\end{DoxyReturn}

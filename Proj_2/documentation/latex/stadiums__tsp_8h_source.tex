@@ -1,0 +1,88 @@
+\hypertarget{stadiums__tsp_8h_source}{}\doxysection{stadiums\+\_\+tsp.\+h}
+\mbox{\hyperlink{stadiums__tsp_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ STADIUMS\_TSP\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ STADIUMS\_TSP\_H}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{csv_8h}{csv.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{stadiums__tsp_8h_a3cb9a3d94a0c552de79e365dc7490e53}{findNearestNeighborStadiums}}(\textcolor{keywordtype}{int}\ currentNode,\ \textcolor{keyword}{const}\ std::vector<bool>\&\ visited,\ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ distances)\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ numNodes\ =\ visited.size();}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{int}\ nearestNeighbor\ =\ -\/1;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{double}\ minDistance\ =\ std::numeric\_limits<double>::max();}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes;\ ++i)\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!visited[i]\ \&\&\ distances[currentNode][i]\ <\ minDistance)\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ minDistance\ =\ distances[currentNode][i];}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ nearestNeighbor\ =\ i;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{return}\ nearestNeighbor;}
+\DoxyCodeLine{00040\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00054\ std::vector<int>\ \mbox{\hyperlink{stadiums__tsp_8h_a4e977414b8c6d48f4e04553771a5fc38}{triangularApproximationStadiums}}(\textcolor{keyword}{const}\ std::vector<StadiumData>\&\ edges,\ \textcolor{keywordtype}{int}\ numNodes)\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ std::vector<std::vector<double>>\ distances(numNodes,\ std::vector<double>(numNodes,\ 0.0));}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_stadium_data}{StadiumData}}\&\ edge\ :\ edges)\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ distances[edge.origin][edge.destination]\ =\ edge.distance;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ distances[edge.destination][edge.origin]\ =\ edge.distance;}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ std::vector<bool>\ visited(numNodes,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00063\ \ \ \ \ std::vector<int>\ tour;}
+\DoxyCodeLine{00064\ \ \ \ \ tour.reserve(numNodes);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{int}\ currentNode\ =\ 0;}
+\DoxyCodeLine{00067\ \ \ \ \ visited[currentNode]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00068\ \ \ \ \ tour.push\_back(currentNode);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{while}\ (tour.size()\ <\ numNodes)\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nearestNeighbor\ =\ \mbox{\hyperlink{stadiums__tsp_8h_a3cb9a3d94a0c552de79e365dc7490e53}{findNearestNeighborStadiums}}(currentNode,\ visited,\ distances);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ currentNode\ =\ nearestNeighbor;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ visited[currentNode]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ tour.push\_back(currentNode);}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ tour.push\_back(0);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{return}\ tour;}
+\DoxyCodeLine{00080\ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00093\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{stadiums__tsp_8h_ad3d49b2515758a06218b0cebaa51d75a}{solveTSPStadiums}}(\textcolor{keyword}{const}\ std::string\&\ filename)\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ std::vector<StadiumData>\ stadiumData\ =\ \mbox{\hyperlink{csv_8h_aa4b0fc61c4e61dd69091b6d43e68b1d0}{loadStadiumsGraph}}(filename);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{int}\ numNodes\ =\ 0;}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_stadium_data}{StadiumData}}\&\ data\ :\ stadiumData)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ numNodes\ =\ std::max(numNodes,\ std::max(data.origin,\ data.destination)\ +\ 1);}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ std::vector<int>\ tour\ =\ \mbox{\hyperlink{stadiums__tsp_8h_a4e977414b8c6d48f4e04553771a5fc38}{triangularApproximationStadiums}}(stadiumData,\ numNodes);}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ std::vector<std::vector<double>>\ distances(numNodes,\ std::vector<double>(numNodes,\ 0.0));}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_stadium_data}{StadiumData}}\&\ data\ :\ stadiumData)\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ distances[data.origin][data.destination]\ =\ data.distance;}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ distances[data.destination][data.origin]\ =\ data.distance;}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Tour:\ "{}};}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes;\ ++i)\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ std::cout\ <<\ tour[i]\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00112\ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{double}\ totalDistance\ =\ 0.0;}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes;\ ++i)\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ totalDistance\ +=\ distances[tour[i]][tour[(i\ +\ 1)\ \%\ numNodes]];}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Total\ Distance:\ "{}}\ <<\ totalDistance\ <<\ \textcolor{stringliteral}{"{}\ Units"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00121\ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ STADIUMS\_TSP\_H}}
+
+\end{DoxyCode}

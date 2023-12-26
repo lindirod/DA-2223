@@ -1,0 +1,88 @@
+\hypertarget{shipping__tsp_8h_source}{}\doxysection{shipping\+\_\+tsp.\+h}
+\mbox{\hyperlink{shipping__tsp_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ SHIPPING\_TSP\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ SHIPPING\_TSP\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{csv_8h}{csv.h}}"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{shipping__tsp_8h_a6523a94c6aaa904d6cb0b3fd5efcbbad}{findNearestNeighborShipping}}(\textcolor{keywordtype}{int}\ currentNode,\ \textcolor{keyword}{const}\ std::vector<bool>\&\ visited,\ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ distances)\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{int}\ numNodes\ =\ visited.size();}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{int}\ nearestNeighbor\ =\ -\/1;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{double}\ minDistance\ =\ std::numeric\_limits<double>::max();}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes;\ ++i)\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!visited[i]\ \&\&\ distances[currentNode][i]\ <\ minDistance)\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ minDistance\ =\ distances[currentNode][i];}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ nearestNeighbor\ =\ i;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{return}\ nearestNeighbor;}
+\DoxyCodeLine{00035\ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00045\ std::vector<int>\ \mbox{\hyperlink{shipping__tsp_8h_ae324db428be6ecca5e57166bfdf2b0a9}{triangularApproximationShipping}}(\textcolor{keyword}{const}\ std::vector<ShippingData>\&\ edges,\ \textcolor{keywordtype}{int}\ numNodes)\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ std::vector<std::vector<double>>\ distances(numNodes,\ std::vector<double>(numNodes,\ 0.0));}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_shipping_data}{ShippingData}}\&\ edge\ :\ edges)\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ distances[edge.origin][edge.destination]\ =\ edge.distance;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ distances[edge.destination][edge.origin]\ =\ edge.distance;}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ std::vector<bool>\ visited(numNodes,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00054\ \ \ \ \ std::vector<int>\ tour;}
+\DoxyCodeLine{00055\ \ \ \ \ tour.reserve(numNodes);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{int}\ currentNode\ =\ 0;}
+\DoxyCodeLine{00058\ \ \ \ \ visited[currentNode]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00059\ \ \ \ \ tour.push\_back(currentNode);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{while}\ (tour.size()\ <\ numNodes)\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nearestNeighbor\ =\ \mbox{\hyperlink{shipping__tsp_8h_a6523a94c6aaa904d6cb0b3fd5efcbbad}{findNearestNeighborShipping}}(currentNode,\ visited,\ distances);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ currentNode\ =\ nearestNeighbor;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ visited[currentNode]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ tour.push\_back(currentNode);}
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ tour.push\_back(0);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{return}\ tour;}
+\DoxyCodeLine{00071\ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00080\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{shipping__tsp_8h_a91134d0ec6227d7c48d3d1fc9e0389dc}{solveTSPShipping}}(\textcolor{keyword}{const}\ std::string\&\ filename)\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ std::vector<ShippingData>\ shippingData\ =\ \mbox{\hyperlink{csv_8h_a75b42b1487d23d87abeef8a8905c1e53}{loadShippingGraph}}(filename);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{int}\ numNodes\ =\ 0;}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_shipping_data}{ShippingData}}\&\ data\ :\ shippingData)\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ numNodes\ =\ std::max(numNodes,\ std::max(data.origin,\ data.destination)\ +\ 1);}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ std::vector<int>\ tour\ =\ \mbox{\hyperlink{shipping__tsp_8h_ae324db428be6ecca5e57166bfdf2b0a9}{triangularApproximationShipping}}(shippingData,\ numNodes);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ std::vector<std::vector<double>>\ distances(numNodes,\ std::vector<double>(numNodes,\ 0.0));}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_shipping_data}{ShippingData}}\&\ data\ :\ shippingData)\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ distances[data.origin][data.destination]\ =\ data.distance;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ distances[data.destination][data.origin]\ =\ data.distance;}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Tour:\ "{}};}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes;\ ++i)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ std::cout\ <<\ tour[i]\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{double}\ totalDistance\ =\ 0.0;}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes;\ ++i)\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ totalDistance\ +=\ distances[tour[i]][tour[(i\ +\ 1)\ \%\ numNodes]];}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Total\ Distance:\ "{}}\ <<\ totalDistance\ <<\ \textcolor{stringliteral}{"{}\ Units"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00108\ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ SHIPPING\_TSP\_H}}
+
+\end{DoxyCode}

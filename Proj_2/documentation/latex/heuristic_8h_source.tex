@@ -1,0 +1,208 @@
+\hypertarget{heuristic_8h_source}{}\doxysection{heuristic.\+h}
+\mbox{\hyperlink{heuristic_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ HEURISTIC\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\ \ \ \ \#define\ HEURISTIC\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\ \ \ \ \#include\ <iostream>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\ \ \ \ \#include\ <vector>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \ \ \#include\ <limits>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ \ \ \#include\ <cmath>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\ \ \ \ \#include\ "{}\mbox{\hyperlink{csv_8h}{csv.h}}"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{heuristic_8h_ac39288f44d373400d501ed5e87dfd62b}{findNearestNeighborH}}(\textcolor{keywordtype}{int}\ currentNode,\ \textcolor{keyword}{const}\ std::vector<bool>\&\ visited,\ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ distances)\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ numNodes\ =\ visited.size();}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nearestNeighbor\ =\ -\/1;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ minDistance\ =\ std::numeric\_limits<double>::max();}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes;\ ++i)\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!visited[i]\ \&\&\ distances[currentNode][i]\ <\ minDistance)\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minDistance\ =\ distances[currentNode][i];}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nearestNeighbor\ =\ i;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nearestNeighbor;}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00057\ \ \ \ \ std::vector<int>\ \mbox{\hyperlink{heuristic_8h_af97998f969d368f35ed9c572f48dbf01}{nearestNeighborApproximation}}(\textcolor{keyword}{const}\ std::vector<int>\&\ cluster,\ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ distances)\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ numNodes\ =\ cluster.size();}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ std::vector<bool>\ visited(numNodes,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ std::vector<int>\ tour;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ current\ =\ cluster[0];\ \textcolor{comment}{//\ Start\ from\ the\ first\ node\ in\ the\ cluster}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ visited[current]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ tour.push\_back(current);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes\ -\/\ 1;\ ++i)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ next\ =\ \mbox{\hyperlink{heuristic_8h_ac39288f44d373400d501ed5e87dfd62b}{findNearestNeighborH}}(current,\ visited,\ distances);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ visited[next]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ tour.push\_back(next);}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ current\ =\ next;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tour;}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00089\ \ \ \ \ std::vector<std::vector<int>>\ \mbox{\hyperlink{heuristic_8h_ad8d79d64591614a23a691ef0cc80a7c3}{performHierarchicalClustering}}(\textcolor{keyword}{const}\ std::vector<T>\&\ data,\ \textcolor{keywordtype}{int}\ numClusters)\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ numPoints\ =\ data.size();}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ each\ data\ point\ as\ a\ separate\ cluster}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ std::vector<std::vector<int>>\ clusters;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numPoints;\ ++i)\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ clusters.push\_back(std::vector<int>\{i\});}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Merge\ clusters\ until\ the\ desired\ number\ of\ clusters\ is\ reached}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (clusters.size()\ >\ numClusters)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ minDistance\ =\ std::numeric\_limits<double>::max();}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cluster1Index\ =\ -\/1;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cluster2Index\ =\ -\/1;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ the\ closest\ pair\ of\ clusters}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ clusters.size();\ ++i)\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ i\ +\ 1;\ j\ <\ clusters.size();\ ++j)\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ distance\ =\ data[clusters[i][0]].distance;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (distance\ <\ minDistance)\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minDistance\ =\ distance;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cluster1Index\ =\ i;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cluster2Index\ =\ j;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Merge\ the\ closest\ pair\ of\ clusters}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ clusters[cluster1Index].insert(clusters[cluster1Index].end(),\ clusters[cluster2Index].begin(),\ clusters[cluster2Index].end());}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ clusters.erase(clusters.begin()\ +\ cluster2Index);}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ clusters;}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00136\ \ \ \ \ std::vector<int>\ \mbox{\hyperlink{heuristic_8h_ab7ac5a6bcea9c087cb42d1361b6d0f53}{performDivideAndConquer}}(\textcolor{keyword}{const}\ std::vector<std::vector<int>>\&\ clusters,\ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ distances)\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ std::vector<int>\ tour;}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ std::vector<int>\&\ cluster\ :\ clusters)\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<int>\ subTour\ =\ \mbox{\hyperlink{heuristic_8h_af97998f969d368f35ed9c572f48dbf01}{nearestNeighborApproximation}}(cluster,\ distances);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ tour.insert(tour.end(),\ subTour.begin(),\ subTour.end()\ -\/\ 1);\ \ \textcolor{comment}{//\ Exclude\ duplicate\ starting\ point}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ tour.push\_back(tour.front());\ \ \textcolor{comment}{//\ Connect\ back\ to\ the\ starting\ point}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tour;}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{heuristic_8h_ac9b208c0ec68693d01c60a889c12dd2c}{solveHStadiums}}(\textcolor{keyword}{const}\ std::string\&\ filename,\ \textcolor{keywordtype}{int}\ numClusters)\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ std::vector<StadiumData>\ stadiumData\ =\ \mbox{\hyperlink{csv_8h_aa4b0fc61c4e61dd69091b6d43e68b1d0}{loadStadiumsGraph}}(filename);}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ std::chrono::steady\_clock::time\_point\ startTime\ =\ std::chrono::steady\_clock::now();}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ numNodes\ =\ stadiumData.size();}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ the\ distances\ between\ nodes}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ std::vector<std::vector<double>>\ distances(numNodes,\ std::vector<double>(numNodes,\ 0.0));}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_stadium_data}{StadiumData}}\&\ data\ :\ stadiumData)\ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ distances[data.origin][data.destination]\ =\ data.distance;}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ distances[data.destination][data.origin]\ =\ data.distance;}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ hierarchical\ clustering}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ std::vector<std::vector<int>>\ clusters\ =\ \mbox{\hyperlink{heuristic_8h_ad8d79d64591614a23a691ef0cc80a7c3}{performHierarchicalClustering}}(stadiumData,\ numClusters);}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ divide\ and\ conquer\ for\ each\ cluster\ and\ get\ the\ sub-\/tour\ for\ each\ cluster}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ std::vector<int>\ tour\ =\ \mbox{\hyperlink{heuristic_8h_ab7ac5a6bcea9c087cb42d1361b6d0f53}{performDivideAndConquer}}(clusters,\ distances);}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Tour:\ "{}};}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ :\ tour)\ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ i\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ totalDistance\ =\ 0.0;}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ tour.size()\ -\/\ 1;\ ++i)\ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ totalDistance\ +=\ distances[tour[i]][tour[i\ +\ 1]];}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ std::chrono::steady\_clock::time\_point\ endTime\ =\ std::chrono::steady\_clock::now();}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ std::chrono::duration<double>\ duration\ =\ std::chrono::duration\_cast<std::chrono::duration<double>>(endTime\ -\/\ startTime);}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Execution\ Time:\ "{}}\ <<\ duration.count()\ <<\ \textcolor{stringliteral}{"{}\ seconds"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Total\ Distance:\ "{}}\ <<\ totalDistance\ <<\ \textcolor{stringliteral}{"{}\ Units"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00195\ \ \ \ \ \}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{heuristic_8h_a5adc0888aceb534eb5e784a681d5843b}{solveHTourism}}(\textcolor{keyword}{const}\ std::string\&\ filename,\ \textcolor{keywordtype}{int}\ numClusters)\ \{}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ std::vector<TourismData>\ tourismData\ =\ \mbox{\hyperlink{csv_8h_a1e9358503c5b7702605616584887f8f3}{loadTourismGraph}}(filename);}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ std::chrono::steady\_clock::time\_point\ startTime\ =\ std::chrono::steady\_clock::now();}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ numNodes\ =\ tourismData.size();}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ the\ distances\ between\ nodes}}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ std::vector<std::vector<double>>\ distances(numNodes,\ std::vector<double>(numNodes,\ 0.0));}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_tourism_data}{TourismData}}\&\ data\ :\ tourismData)\ \{}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ distances[data.origin][data.destination]\ =\ data.distance;}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ distances[data.destination][data.origin]\ =\ data.distance;}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ hierarchical\ clustering}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ std::vector<std::vector<int>>\ clusters\ =\ \mbox{\hyperlink{heuristic_8h_ad8d79d64591614a23a691ef0cc80a7c3}{performHierarchicalClustering}}(tourismData,\ numClusters);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ divide\ and\ conquer\ for\ each\ cluster\ and\ get\ the\ sub-\/tour\ for\ each\ cluster}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ std::vector<int>\ tour\ =\ \mbox{\hyperlink{heuristic_8h_ab7ac5a6bcea9c087cb42d1361b6d0f53}{performDivideAndConquer}}(clusters,\ distances);}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Tour:\ "{}};}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ :\ tour)\ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ i\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ totalDistance\ =\ 0.0;}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ tour.size()\ -\/\ 1;\ ++i)\ \{}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ totalDistance\ +=\ distances[tour[i]][tour[i\ +\ 1]];}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ std::chrono::steady\_clock::time\_point\ endTime\ =\ std::chrono::steady\_clock::now();}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ std::chrono::duration<double>\ duration\ =\ std::chrono::duration\_cast<std::chrono::duration<double>>(endTime\ -\/\ startTime);}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Execution\ Time:\ "{}}\ <<\ duration.count()\ <<\ \textcolor{stringliteral}{"{}\ seconds"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Total\ Distance:\ "{}}\ <<\ totalDistance\ <<\ \textcolor{stringliteral}{"{}\ Units"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00243\ \ \ \ \ \}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{heuristic_8h_aa7a5e62c12b33ed71ead0c600f0334c6}{solveHShipping}}(\textcolor{keyword}{const}\ std::string\&\ filename,\ \textcolor{keywordtype}{int}\ numClusters)\ \{}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ std::vector<ShippingData>\ shippingData\ =\ \mbox{\hyperlink{csv_8h_a75b42b1487d23d87abeef8a8905c1e53}{loadShippingGraph}}(filename);}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ std::chrono::steady\_clock::time\_point\ startTime\ =\ std::chrono::steady\_clock::now();}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ numNodes\ =\ shippingData.size();}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ the\ distances\ between\ nodes}}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ std::vector<std::vector<double>>\ distances(numNodes,\ std::vector<double>(numNodes,\ 0.0));}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_shipping_data}{ShippingData}}\&\ data\ :\ shippingData)\ \{}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ distances[data.origin][data.destination]\ =\ data.distance;}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ distances[data.destination][data.origin]\ =\ data.distance;}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ hierarchical\ clustering}}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ std::vector<std::vector<int>>\ clusters\ =\ \mbox{\hyperlink{heuristic_8h_ad8d79d64591614a23a691ef0cc80a7c3}{performHierarchicalClustering}}(shippingData,\ numClusters);}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ divide\ and\ conquer\ for\ each\ cluster\ and\ get\ the\ sub-\/tour\ for\ each\ cluster}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ std::vector<int>\ tour\ =\ \mbox{\hyperlink{heuristic_8h_ab7ac5a6bcea9c087cb42d1361b6d0f53}{performDivideAndConquer}}(clusters,\ distances);}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Tour:\ "{}};}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ :\ tour)\ \{}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ i\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ totalDistance\ =\ 0.0;}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ tour.size()\ -\/\ 1;\ ++i)\ \{}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ totalDistance\ +=\ distances[tour[i]][tour[i\ +\ 1]];}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ std::chrono::steady\_clock::time\_point\ endTime\ =\ std::chrono::steady\_clock::now();}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ std::chrono::duration<double>\ duration\ =\ std::chrono::duration\_cast<std::chrono::duration<double>>(endTime\ -\/\ startTime);}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Execution\ Time:\ "{}}\ <<\ duration.count()\ <<\ \textcolor{stringliteral}{"{}\ seconds"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Total\ Distance:\ "{}}\ <<\ totalDistance\ <<\ \textcolor{stringliteral}{"{}\ Units"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00291\ \ \ \ \ \}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\ \ \ \ \#endif\ \ }\textcolor{comment}{//\ HEURISTIC\_H}}
+
+\end{DoxyCode}

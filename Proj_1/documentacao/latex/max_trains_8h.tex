@@ -1,0 +1,179 @@
+\hypertarget{max_trains_8h}{}\doxysection{max\+Trains.\+h File Reference}
+\label{max_trains_8h}\index{maxTrains.h@{maxTrains.h}}
+
+
+Implementation of the maximum flow algorithm using the Ford-\/\+Fulkerson method with Edmonds-\/\+Karp improvement.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$queue$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include \char`\"{}stations.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}station\+Pair.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}segment.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_edge}{Edge}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{max_trains_8h_af800aed4732e29db338c7140df267765}{add\+\_\+edge}} (int from, int to, int capacity)
+\begin{DoxyCompactList}\small\item\em Add an edge to the graph with a given capacity. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{max_trains_8h_abf3cab62a201190ef70b68e5c909bad1}{bfs}} (int source\+\_\+node)
+\begin{DoxyCompactList}\small\item\em Build a level graph from the source to the sink using BFS. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{max_trains_8h_a573d5c2a044362ae85af48c54d9f8ea6}{dfs}} (int current\+\_\+node, int sink\+\_\+node, int flow)
+\begin{DoxyCompactList}\small\item\em Find an augmenting path in the residual graph using DFS. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{max_trains_8h_a0180aa715cd1512e9bcbbf209b74194a}{max\+\_\+flow}} (int source\+\_\+node, int sink\+\_\+node)
+\begin{DoxyCompactList}\small\item\em Compute the maximum flow from the source to the sink in the graph using the Ford-\/\+Fulkerson algorithm with the Edmonds-\/\+Karp optimization. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{max_trains_8h_a78a041aec9a5d99c5b0d6ae710eca0dd}{get\+Max\+Trains}} (string stA, string stB, vector$<$ \mbox{\hyperlink{struct_station}{Station}} $>$ stations, vector$<$ \mbox{\hyperlink{struct_segment}{Segment}} $>$ segments)
+\begin{DoxyCompactList}\small\item\em Finds the maximum number of trains that can travel from station A to station B given a list of stations and segments. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{max_trains_8h_a34ef9c6ee1611acd9bd9097c17c78330}{find\+Most\+Affected\+Stations}} (vector$<$ \mbox{\hyperlink{struct_station}{Station}} $>$ stations, vector$<$ \mbox{\hyperlink{struct_segment}{Segment}} $>$ segments, int k)
+\begin{DoxyCompactList}\small\item\em Finds the top-\/k most affected stations for each segment, where the most affected stations are those that share a station with the segment and have the highest capacity. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{max_trains_8h_acc4b987a9b4c8d2ff8bcbdb08c5343e5}\label{max_trains_8h_acc4b987a9b4c8d2ff8bcbdb08c5343e5}} 
+const int {\bfseries MAX\+\_\+\+NODES} = 100005
+\item 
+\mbox{\Hypertarget{max_trains_8h_a14c9dbab105f1b8b8182a022d73e610c}\label{max_trains_8h_a14c9dbab105f1b8b8182a022d73e610c}} 
+const int {\bfseries INF} = 1e9
+\item 
+\mbox{\Hypertarget{max_trains_8h_a2bf300aa14f43e21eee2189c5dac9681}\label{max_trains_8h_a2bf300aa14f43e21eee2189c5dac9681}} 
+vector$<$ \mbox{\hyperlink{struct_edge}{Edge}} $>$ {\bfseries graph} \mbox{[}MAX\+\_\+\+NODES\mbox{]}
+\item 
+\mbox{\Hypertarget{max_trains_8h_affacb5592e2bdabcbea5ef85cae534c1}\label{max_trains_8h_affacb5592e2bdabcbea5ef85cae534c1}} 
+int {\bfseries level} \mbox{[}MAX\+\_\+\+NODES\mbox{]}
+\item 
+\mbox{\Hypertarget{max_trains_8h_adc7d8323114fce57d03c678cc6f9fb55}\label{max_trains_8h_adc7d8323114fce57d03c678cc6f9fb55}} 
+int {\bfseries iterator\+\_\+index} \mbox{[}MAX\+\_\+\+NODES\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of the maximum flow algorithm using the Ford-\/\+Fulkerson method with Edmonds-\/\+Karp improvement. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{max_trains_8h_af800aed4732e29db338c7140df267765}\label{max_trains_8h_af800aed4732e29db338c7140df267765}} 
+\index{maxTrains.h@{maxTrains.h}!add\_edge@{add\_edge}}
+\index{add\_edge@{add\_edge}!maxTrains.h@{maxTrains.h}}
+\doxysubsubsection{\texorpdfstring{add\_edge()}{add\_edge()}}
+{\footnotesize\ttfamily void add\+\_\+edge (\begin{DoxyParamCaption}\item[{int}]{from,  }\item[{int}]{to,  }\item[{int}]{capacity }\end{DoxyParamCaption})}
+
+
+
+Add an edge to the graph with a given capacity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em from} & The source node of the edge. \\
+\hline
+{\em to} & The destination node of the edge. \\
+\hline
+{\em capacity} & The capacity of the edge. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{max_trains_8h_abf3cab62a201190ef70b68e5c909bad1}\label{max_trains_8h_abf3cab62a201190ef70b68e5c909bad1}} 
+\index{maxTrains.h@{maxTrains.h}!bfs@{bfs}}
+\index{bfs@{bfs}!maxTrains.h@{maxTrains.h}}
+\doxysubsubsection{\texorpdfstring{bfs()}{bfs()}}
+{\footnotesize\ttfamily void bfs (\begin{DoxyParamCaption}\item[{int}]{source\+\_\+node }\end{DoxyParamCaption})}
+
+
+
+Build a level graph from the source to the sink using BFS. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source\+\_\+node} & -\/ an integer that represents the source node of the graph \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{max_trains_8h_a573d5c2a044362ae85af48c54d9f8ea6}\label{max_trains_8h_a573d5c2a044362ae85af48c54d9f8ea6}} 
+\index{maxTrains.h@{maxTrains.h}!dfs@{dfs}}
+\index{dfs@{dfs}!maxTrains.h@{maxTrains.h}}
+\doxysubsubsection{\texorpdfstring{dfs()}{dfs()}}
+{\footnotesize\ttfamily int dfs (\begin{DoxyParamCaption}\item[{int}]{current\+\_\+node,  }\item[{int}]{sink\+\_\+node,  }\item[{int}]{flow }\end{DoxyParamCaption})}
+
+
+
+Find an augmenting path in the residual graph using DFS. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+\_\+node} & -\/ an integer that represents the current node being visited\\
+\hline
+{\em sink\+\_\+node} & -\/ an integer that represents the sink node of the graph\\
+\hline
+{\em flow} & -\/ an integer that represents the flow of the path\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the maximum flow of the path 
+\end{DoxyReturn}
+\mbox{\Hypertarget{max_trains_8h_a34ef9c6ee1611acd9bd9097c17c78330}\label{max_trains_8h_a34ef9c6ee1611acd9bd9097c17c78330}} 
+\index{maxTrains.h@{maxTrains.h}!findMostAffectedStations@{findMostAffectedStations}}
+\index{findMostAffectedStations@{findMostAffectedStations}!maxTrains.h@{maxTrains.h}}
+\doxysubsubsection{\texorpdfstring{findMostAffectedStations()}{findMostAffectedStations()}}
+{\footnotesize\ttfamily void find\+Most\+Affected\+Stations (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_station}{Station}} $>$}]{stations,  }\item[{vector$<$ \mbox{\hyperlink{struct_segment}{Segment}} $>$}]{segments,  }\item[{int}]{k }\end{DoxyParamCaption})}
+
+
+
+Finds the top-\/k most affected stations for each segment, where the most affected stations are those that share a station with the segment and have the highest capacity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stations} & -\/ a vector of \mbox{\hyperlink{struct_station}{Station}} objects representing all stations in the system\\
+\hline
+{\em segments} & -\/ a vector of \mbox{\hyperlink{struct_segment}{Segment}} objects representing all segments in the system\\
+\hline
+{\em k} & -\/ an integer representing the number of top most affected stations to find for each segment \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{max_trains_8h_a78a041aec9a5d99c5b0d6ae710eca0dd}\label{max_trains_8h_a78a041aec9a5d99c5b0d6ae710eca0dd}} 
+\index{maxTrains.h@{maxTrains.h}!getMaxTrains@{getMaxTrains}}
+\index{getMaxTrains@{getMaxTrains}!maxTrains.h@{maxTrains.h}}
+\doxysubsubsection{\texorpdfstring{getMaxTrains()}{getMaxTrains()}}
+{\footnotesize\ttfamily int get\+Max\+Trains (\begin{DoxyParamCaption}\item[{string}]{stA,  }\item[{string}]{stB,  }\item[{vector$<$ \mbox{\hyperlink{struct_station}{Station}} $>$}]{stations,  }\item[{vector$<$ \mbox{\hyperlink{struct_segment}{Segment}} $>$}]{segments }\end{DoxyParamCaption})}
+
+
+
+Finds the maximum number of trains that can travel from station A to station B given a list of stations and segments. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stA} & -\/ a string that represents station A \\
+\hline
+{\em stB} & -\/ a string that represents station B \\
+\hline
+{\em stations} & -\/ a vector of \mbox{\hyperlink{struct_station}{Station}} objects that represent the stations \\
+\hline
+{\em segments} & -\/ a vector of \mbox{\hyperlink{struct_segment}{Segment}} objects that represent the segments between the stations \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the maximum number of trains that can travel from station A to station B 
+\end{DoxyReturn}
+\mbox{\Hypertarget{max_trains_8h_a0180aa715cd1512e9bcbbf209b74194a}\label{max_trains_8h_a0180aa715cd1512e9bcbbf209b74194a}} 
+\index{maxTrains.h@{maxTrains.h}!max\_flow@{max\_flow}}
+\index{max\_flow@{max\_flow}!maxTrains.h@{maxTrains.h}}
+\doxysubsubsection{\texorpdfstring{max\_flow()}{max\_flow()}}
+{\footnotesize\ttfamily int max\+\_\+flow (\begin{DoxyParamCaption}\item[{int}]{source\+\_\+node,  }\item[{int}]{sink\+\_\+node }\end{DoxyParamCaption})}
+
+
+
+Compute the maximum flow from the source to the sink in the graph using the Ford-\/\+Fulkerson algorithm with the Edmonds-\/\+Karp optimization. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source\+\_\+node} & -\/ an integer that represents the source node\\
+\hline
+{\em sink\+\_\+node} & -\/ an integer that represents the sink node\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the maximum flow value 
+\end{DoxyReturn}

@@ -1,0 +1,78 @@
+\hypertarget{csv_8h}{}\doxysection{csv.\+h File Reference}
+\label{csv_8h}\index{csv.h@{csv.h}}
+
+
+This file contains the declarations and implementation of functions related to the reading and parsing of CSV files.  
+
+
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include \char`\"{}stations.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}segment.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ \mbox{\hyperlink{struct_station}{Station}} $>$ \mbox{\hyperlink{csv_8h_ae3d98048e55373b33b4754ce8476f1a5}{read\+Stations\+From\+File}} (string filename)
+\begin{DoxyCompactList}\small\item\em Reads station information from a file and returns a vector of stations. This function reads the station information from a specified file, skipping the header line and parsing each subsequent. \end{DoxyCompactList}\item 
+vector$<$ \mbox{\hyperlink{struct_segment}{Segment}} $>$ \mbox{\hyperlink{csv_8h_a2971350b97cd12dc79bf6e1c6a897d07}{read\+Segments\+From\+File}} (string filename)
+\begin{DoxyCompactList}\small\item\em Reads segment information from a file and returns a vector of segments. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains the declarations and implementation of functions related to the reading and parsing of CSV files. 
+
+\begin{DoxyDate}{Date}
+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{csv_8h_a2971350b97cd12dc79bf6e1c6a897d07}\label{csv_8h_a2971350b97cd12dc79bf6e1c6a897d07}} 
+\index{csv.h@{csv.h}!readSegmentsFromFile@{readSegmentsFromFile}}
+\index{readSegmentsFromFile@{readSegmentsFromFile}!csv.h@{csv.h}}
+\doxysubsubsection{\texorpdfstring{readSegmentsFromFile()}{readSegmentsFromFile()}}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{struct_segment}{Segment}} $>$ read\+Segments\+From\+File (\begin{DoxyParamCaption}\item[{string}]{filename }\end{DoxyParamCaption})}
+
+
+
+Reads segment information from a file and returns a vector of segments. 
+
+This function reads the segment information from a specified file, skipping the header line and parsing each subsequent
+
+non-\/empty line to extract the station names, capacity, and service information. The station names are then modified to
+
+replace spaces with underscores before creating a new \mbox{\hyperlink{struct_segment}{Segment}} object and adding it to a vector of \mbox{\hyperlink{struct_segment}{Segment}} objects.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the file containing the segment information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of \mbox{\hyperlink{struct_segment}{Segment}} objects containing the parsed segment information. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{csv_8h_ae3d98048e55373b33b4754ce8476f1a5}\label{csv_8h_ae3d98048e55373b33b4754ce8476f1a5}} 
+\index{csv.h@{csv.h}!readStationsFromFile@{readStationsFromFile}}
+\index{readStationsFromFile@{readStationsFromFile}!csv.h@{csv.h}}
+\doxysubsubsection{\texorpdfstring{readStationsFromFile()}{readStationsFromFile()}}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{struct_station}{Station}} $>$ read\+Stations\+From\+File (\begin{DoxyParamCaption}\item[{string}]{filename }\end{DoxyParamCaption})}
+
+
+
+Reads station information from a file and returns a vector of stations. This function reads the station information from a specified file, skipping the header line and parsing each subsequent. 
+
+line to extract the station name, district, municipality, township, and line information. The station name is then
+
+modified to replace spaces with underscores before creating a new \mbox{\hyperlink{struct_station}{Station}} object and adding it to a vector of \mbox{\hyperlink{struct_station}{Station}} objects.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the file containing the station information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of \mbox{\hyperlink{struct_station}{Station}} objects containing the parsed station information. 
+\end{DoxyReturn}

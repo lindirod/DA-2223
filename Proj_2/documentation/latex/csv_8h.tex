@@ -1,0 +1,155 @@
+\hypertarget{csv_8h}{}\doxysection{csv.\+h File Reference}
+\label{csv_8h}\index{csv.h@{csv.h}}
+
+
+Includes functions for loading and processing graph data from CSV files, along with relevant data structures.  
+
+
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_tourism_data}{Tourism\+Data}}
+\begin{DoxyCompactList}\small\item\em Struct representing data for tourism. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_shipping_data}{Shipping\+Data}}
+\begin{DoxyCompactList}\small\item\em Struct representing data for shipping. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_stadium_data}{Stadium\+Data}}
+\begin{DoxyCompactList}\small\item\em Struct representing data for stadium. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_edge_data}{Edge\+Data}}
+\begin{DoxyCompactList}\small\item\em Struct representing general edge data. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_node_data}{Node\+Data}}
+\begin{DoxyCompactList}\small\item\em Struct representing node data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_tourism_data}{Tourism\+Data}} $>$ \mbox{\hyperlink{csv_8h_a1e9358503c5b7702605616584887f8f3}{load\+Tourism\+Graph}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Load the graph data for tourism from a CSV file. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_shipping_data}{Shipping\+Data}} $>$ \mbox{\hyperlink{csv_8h_a75b42b1487d23d87abeef8a8905c1e53}{load\+Shipping\+Graph}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Load the graph data for shipping from a CSV file. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_stadium_data}{Stadium\+Data}} $>$ \mbox{\hyperlink{csv_8h_aa4b0fc61c4e61dd69091b6d43e68b1d0}{load\+Stadiums\+Graph}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Load the graph data for stadiums from a CSV file. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_edge_data}{Edge\+Data}} $>$ \mbox{\hyperlink{csv_8h_a08425e7cf4c8375ba0f079f68cbf5e55}{load\+Edge\+Graph}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Load the edge graph data from a CSV file. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_node_data}{Node\+Data}} $>$ \mbox{\hyperlink{csv_8h_a8eb5c425fcecbb1d4069f99cb51fc979}{load\+Nodes\+Graph}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Load the node graph data from a CSV file. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_edge_data}{Edge\+Data}} $>$ \mbox{\hyperlink{csv_8h_a2890c4fe22902f4dbda14cb018384e37}{load\+Extra\+Medium\+Graph}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Load the extra medium graph data from a CSV file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Includes functions for loading and processing graph data from CSV files, along with relevant data structures. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{csv_8h_a08425e7cf4c8375ba0f079f68cbf5e55}\label{csv_8h_a08425e7cf4c8375ba0f079f68cbf5e55}} 
+\index{csv.h@{csv.h}!loadEdgeGraph@{loadEdgeGraph}}
+\index{loadEdgeGraph@{loadEdgeGraph}!csv.h@{csv.h}}
+\doxysubsubsection{\texorpdfstring{loadEdgeGraph()}{loadEdgeGraph()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{struct_edge_data}{Edge\+Data}} $>$ load\+Edge\+Graph (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})}
+
+
+
+Load the edge graph data from a CSV file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the CSV file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of \mbox{\hyperlink{struct_edge_data}{Edge\+Data}} containing the loaded graph data. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{csv_8h_a2890c4fe22902f4dbda14cb018384e37}\label{csv_8h_a2890c4fe22902f4dbda14cb018384e37}} 
+\index{csv.h@{csv.h}!loadExtraMediumGraph@{loadExtraMediumGraph}}
+\index{loadExtraMediumGraph@{loadExtraMediumGraph}!csv.h@{csv.h}}
+\doxysubsubsection{\texorpdfstring{loadExtraMediumGraph()}{loadExtraMediumGraph()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{struct_edge_data}{Edge\+Data}} $>$ load\+Extra\+Medium\+Graph (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})}
+
+
+
+Load the extra medium graph data from a CSV file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the CSV file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of \mbox{\hyperlink{struct_edge_data}{Edge\+Data}} containing the loaded graph data. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{csv_8h_a8eb5c425fcecbb1d4069f99cb51fc979}\label{csv_8h_a8eb5c425fcecbb1d4069f99cb51fc979}} 
+\index{csv.h@{csv.h}!loadNodesGraph@{loadNodesGraph}}
+\index{loadNodesGraph@{loadNodesGraph}!csv.h@{csv.h}}
+\doxysubsubsection{\texorpdfstring{loadNodesGraph()}{loadNodesGraph()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{struct_node_data}{Node\+Data}} $>$ load\+Nodes\+Graph (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})}
+
+
+
+Load the node graph data from a CSV file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the CSV file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of \mbox{\hyperlink{struct_node_data}{Node\+Data}} containing the loaded graph data. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{csv_8h_a75b42b1487d23d87abeef8a8905c1e53}\label{csv_8h_a75b42b1487d23d87abeef8a8905c1e53}} 
+\index{csv.h@{csv.h}!loadShippingGraph@{loadShippingGraph}}
+\index{loadShippingGraph@{loadShippingGraph}!csv.h@{csv.h}}
+\doxysubsubsection{\texorpdfstring{loadShippingGraph()}{loadShippingGraph()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{struct_shipping_data}{Shipping\+Data}} $>$ load\+Shipping\+Graph (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})}
+
+
+
+Load the graph data for shipping from a CSV file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the CSV file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of \mbox{\hyperlink{struct_shipping_data}{Shipping\+Data}} containing the loaded graph data. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{csv_8h_aa4b0fc61c4e61dd69091b6d43e68b1d0}\label{csv_8h_aa4b0fc61c4e61dd69091b6d43e68b1d0}} 
+\index{csv.h@{csv.h}!loadStadiumsGraph@{loadStadiumsGraph}}
+\index{loadStadiumsGraph@{loadStadiumsGraph}!csv.h@{csv.h}}
+\doxysubsubsection{\texorpdfstring{loadStadiumsGraph()}{loadStadiumsGraph()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{struct_stadium_data}{Stadium\+Data}} $>$ load\+Stadiums\+Graph (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})}
+
+
+
+Load the graph data for stadiums from a CSV file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the CSV file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of \mbox{\hyperlink{struct_stadium_data}{Stadium\+Data}} containing the loaded graph data. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{csv_8h_a1e9358503c5b7702605616584887f8f3}\label{csv_8h_a1e9358503c5b7702605616584887f8f3}} 
+\index{csv.h@{csv.h}!loadTourismGraph@{loadTourismGraph}}
+\index{loadTourismGraph@{loadTourismGraph}!csv.h@{csv.h}}
+\doxysubsubsection{\texorpdfstring{loadTourismGraph()}{loadTourismGraph()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{struct_tourism_data}{Tourism\+Data}} $>$ load\+Tourism\+Graph (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})}
+
+
+
+Load the graph data for tourism from a CSV file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the CSV file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of \mbox{\hyperlink{struct_tourism_data}{Tourism\+Data}} containing the loaded graph data. 
+\end{DoxyReturn}

@@ -1,0 +1,91 @@
+\hypertarget{stadiums__tsp_8h}{}\doxysection{stadiums\+\_\+tsp.\+h File Reference}
+\label{stadiums__tsp_8h}\index{stadiums\_tsp.h@{stadiums\_tsp.h}}
+
+
+Code for solving the Traveling Salesman Problem (TSP) using Triangular Approximation Algorithm for the stadiums toy graph -\/ 4.\+2.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include \char`\"{}csv.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{stadiums__tsp_8h_a3cb9a3d94a0c552de79e365dc7490e53}{find\+Nearest\+Neighbor\+Stadiums}} (int current\+Node, const std\+::vector$<$ bool $>$ \&visited, const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&distances)
+\begin{DoxyCompactList}\small\item\em Find the nearest neighbor node not visited yet. \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{stadiums__tsp_8h_a4e977414b8c6d48f4e04553771a5fc38}{triangular\+Approximation\+Stadiums}} (const std\+::vector$<$ \mbox{\hyperlink{struct_stadium_data}{Stadium\+Data}} $>$ \&edges, int num\+Nodes)
+\begin{DoxyCompactList}\small\item\em Perform the Triangular Approximation Heuristic for the \char`\"{}stadiums.\+csv\char`\"{} file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{stadiums__tsp_8h_ad3d49b2515758a06218b0cebaa51d75a}{solve\+TSPStadiums}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Solve TSP using the Triangular Approximation Heuristic for the \char`\"{}stadiums.\+csv\char`\"{} file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Code for solving the Traveling Salesman Problem (TSP) using Triangular Approximation Algorithm for the stadiums toy graph -\/ 4.\+2. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{stadiums__tsp_8h_a3cb9a3d94a0c552de79e365dc7490e53}\label{stadiums__tsp_8h_a3cb9a3d94a0c552de79e365dc7490e53}} 
+\index{stadiums\_tsp.h@{stadiums\_tsp.h}!findNearestNeighborStadiums@{findNearestNeighborStadiums}}
+\index{findNearestNeighborStadiums@{findNearestNeighborStadiums}!stadiums\_tsp.h@{stadiums\_tsp.h}}
+\doxysubsubsection{\texorpdfstring{findNearestNeighborStadiums()}{findNearestNeighborStadiums()}}
+{\footnotesize\ttfamily int find\+Nearest\+Neighbor\+Stadiums (\begin{DoxyParamCaption}\item[{int}]{current\+Node,  }\item[{const std\+::vector$<$ bool $>$ \&}]{visited,  }\item[{const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&}]{distances }\end{DoxyParamCaption})}
+
+
+
+Find the nearest neighbor node not visited yet. 
+
+This function finds the nearest neighbor node to the current node that has not been visited yet, based on the distances between nodes and the visited status. The time complexity is O(n), where n is the number of nodes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Node} & The index of the current node. \\
+\hline
+{\em visited} & A vector indicating whether each node has been visited or not. \\
+\hline
+{\em distances} & A 2D vector representing the distances between nodes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the nearest neighbor node that has not been visited yet. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{stadiums__tsp_8h_ad3d49b2515758a06218b0cebaa51d75a}\label{stadiums__tsp_8h_ad3d49b2515758a06218b0cebaa51d75a}} 
+\index{stadiums\_tsp.h@{stadiums\_tsp.h}!solveTSPStadiums@{solveTSPStadiums}}
+\index{solveTSPStadiums@{solveTSPStadiums}!stadiums\_tsp.h@{stadiums\_tsp.h}}
+\doxysubsubsection{\texorpdfstring{solveTSPStadiums()}{solveTSPStadiums()}}
+{\footnotesize\ttfamily void solve\+TSPStadiums (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})}
+
+
+
+Solve TSP using the Triangular Approximation Heuristic for the \char`\"{}stadiums.\+csv\char`\"{} file. 
+
+This function solves the Traveling Salesman Problem (TSP) using the Triangular Approximation Heuristic. It loads the stadium data from the specified file, performs the Triangular Approximation Heuristic to find the tour, and calculates the total distance of the tour. It then prints the tour and the total distance. The time complexity is O(n$^\wedge$2), where n is the number of nodes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The filename of the \char`\"{}stadiums.\+csv\char`\"{} file. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{stadiums__tsp_8h_a4e977414b8c6d48f4e04553771a5fc38}\label{stadiums__tsp_8h_a4e977414b8c6d48f4e04553771a5fc38}} 
+\index{stadiums\_tsp.h@{stadiums\_tsp.h}!triangularApproximationStadiums@{triangularApproximationStadiums}}
+\index{triangularApproximationStadiums@{triangularApproximationStadiums}!stadiums\_tsp.h@{stadiums\_tsp.h}}
+\doxysubsubsection{\texorpdfstring{triangularApproximationStadiums()}{triangularApproximationStadiums()}}
+{\footnotesize\ttfamily std\+::vector$<$ int $>$ triangular\+Approximation\+Stadiums (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{struct_stadium_data}{Stadium\+Data}} $>$ \&}]{edges,  }\item[{int}]{num\+Nodes }\end{DoxyParamCaption})}
+
+
+
+Perform the Triangular Approximation Heuristic for the \char`\"{}stadiums.\+csv\char`\"{} file. 
+
+This function performs the Triangular Approximation Heuristic to find the tour for the given edges and number of nodes. It returns a vector representing the tour, where each element is the index of a node in the tour. The time complexity is O(n$^\wedge$2), where n is the number of nodes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em edges} & The edges representing the distances between nodes. \\
+\hline
+{\em num\+Nodes} & The total number of nodes in the graph. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector representing the tour. 
+\end{DoxyReturn}

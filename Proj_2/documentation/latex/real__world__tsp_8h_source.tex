@@ -1,0 +1,130 @@
+\hypertarget{real__world__tsp_8h_source}{}\doxysection{real\+\_\+world\+\_\+tsp.\+h}
+\mbox{\hyperlink{real__world__tsp_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ REAL\_WORLD\_TSP\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ REAL\_WORLD\_TSP\_H}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{csv_8h}{csv.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{real__world__tsp_8h_aa3bcd0102edc51cffe538cf6519da620}{EARTH\_RADIUS\_KM}}\ =\ 6371.0;}
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{real__world__tsp_8h_a8e8b5d1633dfb57d0d6056850bdd710c}{toRadians}}(\textcolor{keywordtype}{double}\ degrees)\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{return}\ degrees\ *\ M\_PI\ /\ 180.0;}
+\DoxyCodeLine{00024\ \}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{real__world__tsp_8h_ae8b1f9c1793fb1626fb141b9fdf126e2}{haversineDistance}}(\textcolor{keywordtype}{double}\ lat1,\ \textcolor{keywordtype}{double}\ lon1,\ \textcolor{keywordtype}{double}\ lat2,\ \textcolor{keywordtype}{double}\ lon2)\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{double}\ dLat\ =\ \mbox{\hyperlink{real__world__tsp_8h_a8e8b5d1633dfb57d0d6056850bdd710c}{toRadians}}(lat2\ -\/\ lat1);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{double}\ dLon\ =\ \mbox{\hyperlink{real__world__tsp_8h_a8e8b5d1633dfb57d0d6056850bdd710c}{toRadians}}(lon2\ -\/\ lon1);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{double}\ a\ =\ std::sin(dLat\ /\ 2)\ *\ std::sin(dLat\ /\ 2)\ +}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cos(\mbox{\hyperlink{real__world__tsp_8h_a8e8b5d1633dfb57d0d6056850bdd710c}{toRadians}}(lat1))\ *\ std::cos(\mbox{\hyperlink{real__world__tsp_8h_a8e8b5d1633dfb57d0d6056850bdd710c}{toRadians}}(lat2))\ *}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::sin(dLon\ /\ 2)\ *\ std::sin(dLon\ /\ 2);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{double}\ c\ =\ 2\ *\ std::atan2(std::sqrt(a),\ std::sqrt(1\ -\/\ a));}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{real__world__tsp_8h_aa3bcd0102edc51cffe538cf6519da620}{EARTH\_RADIUS\_KM}}\ *\ c;}
+\DoxyCodeLine{00046\ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00058\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{real__world__tsp_8h_a92854e7fd4f8ada145767e23de09e193}{findNearestNeighbor}}(\textcolor{keywordtype}{int}\ currentNode,\ \textcolor{keyword}{const}\ std::vector<bool>\&\ visited,\ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ distances)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{int}\ numNodes\ =\ visited.size();}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{int}\ nearestNeighbor\ =\ -\/1;}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{double}\ minDistance\ =\ std::numeric\_limits<double>::max();}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes;\ ++i)\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!visited[i]\ \&\&\ distances[currentNode][i]\ <\ minDistance)\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ minDistance\ =\ distances[currentNode][i];}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ nearestNeighbor\ =\ i;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{return}\ nearestNeighbor;}
+\DoxyCodeLine{00071\ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00082\ std::vector<int>\ \mbox{\hyperlink{real__world__tsp_8h_a80f948c4b96fc273e644a7ca26da16c2}{triangularApproximation}}(\textcolor{keyword}{const}\ std::vector<NodeData>\&\ nodes,\ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ distances)\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{int}\ numNodes\ =\ nodes.size();}
+\DoxyCodeLine{00084\ \ \ \ \ std::vector<bool>\ visited(numNodes,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00085\ \ \ \ \ std::vector<int>\ tour;}
+\DoxyCodeLine{00086\ \ \ \ \ tour.reserve(numNodes);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{comment}{//\ Start\ at\ the\ node\ with\ the\ zero-\/identifier\ label}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{int}\ currentNode\ =\ 0;}
+\DoxyCodeLine{00090\ \ \ \ \ visited[currentNode]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00091\ \ \ \ \ tour.push\_back(currentNode);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{comment}{//\ Select\ the\ nearest\ neighbor\ node\ not\ visited\ yet\ as\ the\ next\ node\ to\ visit}}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes\ -\/\ 1;\ ++i)\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nearestNeighbor\ =\ \mbox{\hyperlink{real__world__tsp_8h_a92854e7fd4f8ada145767e23de09e193}{findNearestNeighbor}}(currentNode,\ visited,\ distances);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ currentNode\ =\ nearestNeighbor;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ visited[currentNode]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ tour.push\_back(currentNode);}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{comment}{//\ Add\ an\ edge\ from\ the\ last\ visited\ node\ back\ to\ the\ starting\ node}}
+\DoxyCodeLine{00102\ \ \ \ \ tour.push\_back(0);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{return}\ tour;}
+\DoxyCodeLine{00105\ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{real__world__tsp_8h_a53627fafaad549299bde205f2e2e624b}{solveTSPreal}}(\textcolor{keyword}{const}\ std::string\&\ nodesFile,\ \textcolor{keyword}{const}\ std::string\&\ edgesFile)\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ Load\ node\ data}}
+\DoxyCodeLine{00117\ \ \ \ \ std::vector<NodeData>\ nodes\ =\ \mbox{\hyperlink{csv_8h_a8eb5c425fcecbb1d4069f99cb51fc979}{loadNodesGraph}}(nodesFile);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{comment}{//\ Load\ edge\ data}}
+\DoxyCodeLine{00120\ \ \ \ \ std::vector<EdgeData>\ edges\ =\ \mbox{\hyperlink{csv_8h_a08425e7cf4c8375ba0f079f68cbf5e55}{loadEdgeGraph}}(edgesFile);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{comment}{//\ Create\ a\ distance\ matrix}}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{int}\ numNodes\ =\ nodes.size();}
+\DoxyCodeLine{00124\ \ \ \ \ std::vector<std::vector<double>>\ distances(numNodes,\ std::vector<double>(numNodes,\ 0.0));}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{comment}{//\ Initialize\ the\ distance\ matrix\ with\ the\ provided\ distances\ in\ the\ edge\ data}}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_edge_data}{EdgeData}}\&\ edge\ :\ edges)\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ distances[edge.origin][edge.destination]\ =\ edge.distance;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ distances[edge.destination][edge.origin]\ =\ edge.distance;}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{comment}{//\ Calculate\ the\ geographic\ distances\ for\ missing\ edges}}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes;\ ++i)\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ i\ +\ 1;\ j\ <\ numNodes;\ ++j)\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (distances[i][j]\ ==\ 0.0)\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ lat1\ =\ nodes[i].latitude;}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ lon1\ =\ nodes[i].longitude;}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ lat2\ =\ nodes[j].latitude;}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ lon2\ =\ nodes[j].longitude;}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ distance\ =\ \mbox{\hyperlink{real__world__tsp_8h_ae8b1f9c1793fb1626fb141b9fdf126e2}{haversineDistance}}(lat1,\ lon1,\ lat2,\ lon2);}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ distances[i][j]\ =\ distance;}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ distances[j][i]\ =\ distance;}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00146\ \ \ \ \ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{comment}{//\ Perform\ the\ Triangular\ Approximation\ Heuristic}}
+\DoxyCodeLine{00149\ \ \ \ \ std::vector<int>\ tour\ =\ \mbox{\hyperlink{real__world__tsp_8h_a80f948c4b96fc273e644a7ca26da16c2}{triangularApproximation}}(nodes,\ distances);}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \textcolor{comment}{//\ Print\ the\ tour}}
+\DoxyCodeLine{00152\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Tour:\ "{}};}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes;\ ++i)\ \{}
+\DoxyCodeLine{00154\ \ \ \ \ std::cout\ <<\ tour[i]\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordflow}{if}\ ((i\ +\ 1)\ \%\ 10\ ==\ 0)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;\ \textcolor{comment}{//\ Add\ a\ line\ break\ after\ every\ 10\ nodes}}
+\DoxyCodeLine{00157\ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \textcolor{comment}{//\ Calculate\ the\ total\ distance\ of\ the\ tour}}
+\DoxyCodeLine{00162\ \ \ \ \textcolor{keywordtype}{double}\ totalDistance\ =\ 0.0;}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ numNodes;\ ++i)\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ totalDistance\ +=\ distances[tour[i]][tour[(i\ +\ 1)\ \%\ numNodes]];}
+\DoxyCodeLine{00165\ \ \ \ \ \}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{comment}{//\ Print\ the\ total\ distance}}
+\DoxyCodeLine{00168\ std::cout\ <<\ \textcolor{stringliteral}{"{}Total\ Distance:\ "{}}\ <<\ totalDistance\ <<\ \textcolor{stringliteral}{"{}\ Units"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00169\ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ REAL\_WORLD\_TSP\_H}}
+
+\end{DoxyCode}

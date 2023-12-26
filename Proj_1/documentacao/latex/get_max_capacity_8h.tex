@@ -1,0 +1,54 @@
+\hypertarget{get_max_capacity_8h}{}\doxysection{get\+Max\+Capacity.\+h File Reference}
+\label{get_max_capacity_8h}\index{getMaxCapacity.h@{getMaxCapacity.h}}
+
+
+This file defines and implements a function that calculates the maximum capacity (or maximum flow) between two stations in a flow network.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$queue$>$}\newline
+{\ttfamily \#include $<$climits$>$}\newline
+{\ttfamily \#include \char`\"{}stations.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}segment.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{get_max_capacity_8h_a0baa00709547b6a0a441ac5ccb88aac0}{get\+Max\+Capacity}} (string stationA, string stationB, const vector$<$ \mbox{\hyperlink{struct_station}{Station}} $>$ \&stations, const vector$<$ \mbox{\hyperlink{struct_segment}{Segment}} $>$ \&segments)
+\begin{DoxyCompactList}\small\item\em Calculates the maximum capacity (or maximum flow) between two stations in a flow network. The time complexity of this function that uses common algorithms such as the Edmonds-\/\+Karp algorithm, is typically on the order of O(\+V $\ast$ E$^\wedge$2), where V is the number of vertices (stations in this case) and E is the number of edges (segments in this case) in the flow network. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file defines and implements a function that calculates the maximum capacity (or maximum flow) between two stations in a flow network. 
+
+\begin{DoxyDate}{Date}
+2023 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{get_max_capacity_8h_a0baa00709547b6a0a441ac5ccb88aac0}\label{get_max_capacity_8h_a0baa00709547b6a0a441ac5ccb88aac0}} 
+\index{getMaxCapacity.h@{getMaxCapacity.h}!getMaxCapacity@{getMaxCapacity}}
+\index{getMaxCapacity@{getMaxCapacity}!getMaxCapacity.h@{getMaxCapacity.h}}
+\doxysubsubsection{\texorpdfstring{getMaxCapacity()}{getMaxCapacity()}}
+{\footnotesize\ttfamily int get\+Max\+Capacity (\begin{DoxyParamCaption}\item[{string}]{stationA,  }\item[{string}]{stationB,  }\item[{const vector$<$ \mbox{\hyperlink{struct_station}{Station}} $>$ \&}]{stations,  }\item[{const vector$<$ \mbox{\hyperlink{struct_segment}{Segment}} $>$ \&}]{segments }\end{DoxyParamCaption})}
+
+
+
+Calculates the maximum capacity (or maximum flow) between two stations in a flow network. The time complexity of this function that uses common algorithms such as the Edmonds-\/\+Karp algorithm, is typically on the order of O(\+V $\ast$ E$^\wedge$2), where V is the number of vertices (stations in this case) and E is the number of edges (segments in this case) in the flow network. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stationA} & The name of the source station. \\
+\hline
+{\em stationB} & The name of the sink station. \\
+\hline
+{\em stations} & A vector of \mbox{\hyperlink{struct_station}{Station}} objects representing the stations in the flow network. \\
+\hline
+{\em segments} & A vector of \mbox{\hyperlink{struct_segment}{Segment}} objects representing the segments between stations in the flow network.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The maximum flow (which is also the maximum capacity) between stationA and stationB. Returns -\/1 if stationA or stationB is not found in the stations vector. 
+\end{DoxyReturn}

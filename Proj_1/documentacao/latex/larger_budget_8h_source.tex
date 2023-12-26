@@ -1,0 +1,50 @@
+\hypertarget{larger_budget_8h_source}{}\doxysection{larger\+Budget.\+h}
+\mbox{\hyperlink{larger_budget_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ LARGERBUDGET\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ LARGERBUDGET\_H}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <climits>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{stations_8h}{stations.h}}"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{segment_8h}{segment.h}}"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{budgets_8h}{budgets.h}}"{}}}
+\DoxyCodeLine{00020\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00030\ vector<Budget>\ \mbox{\hyperlink{larger_budget_8h_a513f9a33eb9184fed55e56ec8d643c1f}{largerBudget}}(vector<Station>\&\ stations,\ \textcolor{keywordtype}{int}\ k)\{}
+\DoxyCodeLine{00031\ \ \ \ \ vector<Budget>\ municipalityDistrict;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ station\ :\ stations)\{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ found\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ muniDis\ :\ municipalityDistrict)\{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(muniDis.municipality\ ==\ station.municipality\ \&\&\ muniDis.district\ ==\ station.district)\{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ muniDis.counter++;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ found\ =\ \textcolor{keyword}{true};\ \ \textcolor{comment}{//The\ municipality\ and\ district\ have\ been\ found}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!found)\{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ municipalityDistrict.push\_back(\mbox{\hyperlink{struct_budget}{Budget}}\{station.\mbox{\hyperlink{struct_budget_ada8463afc6dcf0d9a578da6b8d32dbb4}{municipality}},\ station.district\});}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \ \ sort(municipalityDistrict.begin(),\ municipalityDistrict.end(),\ \mbox{\hyperlink{budgets_8h_a97eddb821f64ae498b61747fe3321b14}{compareMunDis}});}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//If\ the\ size\ of\ the\ vector\ is\ greater\ than\ k,\ resize\ the\ vector\ to\ contain\ k\ elements}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{if}(municipalityDistrict.size()\ >\ k)}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ municipalityDistrict.resize(k);}
+\DoxyCodeLine{00052\ \ \ \ \ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{return}\ municipalityDistrict;}
+\DoxyCodeLine{00055\ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//LARGERBUDGET\_H}}
+
+\end{DoxyCode}

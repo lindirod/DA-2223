@@ -1,0 +1,89 @@
+\hypertarget{get_min_cost_8h_source}{}\doxysection{get\+Min\+Cost.\+h}
+\mbox{\hyperlink{get_min_cost_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ GETMINCOST\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ GETMINCOST\_H}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <climits>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{stations_8h}{stations.h}}"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{segment_8h}{segment.h}}"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{get_max_capacity_8h}{getMaxCapacity.h}}"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{get_min_cost_8h_af8c1b9fbd624a3aa871cd15b7fa30217}{getMinCost}}(\textcolor{keywordtype}{string}\ stationA,\ \textcolor{keywordtype}{string}\ stationB,\ \textcolor{keyword}{const}\ vector<Station>\&\ stations,\ \textcolor{keyword}{const}\ vector<Segment>\&\ segments)\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//\ Find\ the\ source\ and\ sink\ nodes}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{int}\ source\ =\ -\/1,\ sink\ =\ -\/1;}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ stations.size();\ i++)\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stations[i].name\ ==\ stationA)\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ source\ =\ i;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stations[i].name\ ==\ stationB)\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ sink\ =\ i;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{if}\ (source\ ==\ -\/1)\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ station\ "{}}\ <<\ stationA\ <<\ \textcolor{stringliteral}{"{}\ not\ found"{}}\ <<\ endl;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{if}\ (sink\ ==\ -\/1)\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ station\ "{}}\ <<\ stationB\ <<\ \textcolor{stringliteral}{"{}\ not\ found"{}}\ <<\ endl;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//\ Compute\ the\ maximum\ flow\ between\ the\ source\ and\ sink\ nodes\ using\ the\ Edmonds-\/Karp\ algorithm}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{int}\ maxCapacity\ =\ \mbox{\hyperlink{get_max_capacity_8h_a0baa00709547b6a0a441ac5ccb88aac0}{getMaxCapacity}}(stationA,\ stationB,\ stations,\ segments);}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{if}\ (maxCapacity\ ==\ -\/1)\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ cannot\ compute\ maximum\ capacity"{}}\ <<\ endl;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{//\ Initialize\ the\ adjacency\ matrix\ for\ the\ cost\ network}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n\ =\ stations.size();}
+\DoxyCodeLine{00059\ \ \ \ \ vector<vector<int>>\ cost(n,\ vector<int>(n,\ 0));}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ segment\ :\ segments)\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ -\/1,\ j\ =\ -\/1;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ k\ =\ 0;\ k\ <\ stations.size();\ k++)\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stations[k].name\ ==\ segment.stationA)\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ =\ k;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stations[k].name\ ==\ segment.stationB)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ j\ =\ k;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ !=\ -\/1\ \&\&\ j\ !=\ -\/1)\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ segmentCost\ =\ (segment.service\ ==\ \textcolor{stringliteral}{"{}ALFA"{}})\ ?\ 4\ :\ 2;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ cost[i][j]\ =\ segment.capacity\ *\ segmentCost;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ cost[j][i]\ =\ segment.capacity\ *\ segmentCost;\ \textcolor{comment}{//\ assume\ undirected}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{comment}{//Find\ the\ minimum\ cost\ for\ the\ maximum\ flow\ using\ Dijkstra's\ Algorithm}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ INF\ =\ INT\_MAX\ /\ 2;}
+\DoxyCodeLine{00079\ \ \ \ \ vector<int>\ dist(n,\ INF);}
+\DoxyCodeLine{00080\ \ \ \ \ dist[source]\ =\ 0;}
+\DoxyCodeLine{00081\ \ \ \ \ priority\_queue<pair<int,\ int>,\ vector<pair<int,\ int>>,\ greater<pair<int,\ int>>>\ pq;}
+\DoxyCodeLine{00082\ \ \ \ \ pq.push(make\_pair(0,\ source));}
+\DoxyCodeLine{00083\ \ \ \ \ vector<int>\ parent(n,\ -\/1);}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{while}\ (!pq.empty())\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ u\ =\ pq.top().second;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ pq.pop();}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ v\ =\ 0;\ v\ <\ n;\ v++)\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cost[u][v]\ >\ 0\ \&\&\ dist[u]\ <\ INF\ \&\&\ dist[u]\ +\ cost[u][v]\ <\ dist[v])\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dist[v]\ =\ dist[u]\ +\ cost[u][v];}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parent[v]\ =\ u;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pq.push(make\_pair(dist[v],\ v));}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{comment}{//\ Return\ the\ minimum\ cost\ per\ unit\ of\ flow\ for\ the\ maximum\ flow}}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{return}\ dist[sink]\ /\ maxCapacity;}
+\DoxyCodeLine{00098\ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ GETMMINCOST\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

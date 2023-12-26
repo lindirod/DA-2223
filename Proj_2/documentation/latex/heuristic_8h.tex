@@ -1,0 +1,185 @@
+\hypertarget{heuristic_8h}{}\doxysection{heuristic.\+h File Reference}
+\label{heuristic_8h}\index{heuristic.h@{heuristic.h}}
+
+
+Code for solving the Traveling Salesman Problem (TSP) using hierarchical clustering, divide and conquer, and nearest neighbor 2-\/approximation for the stadiums toy graph -\/ 4.\+3.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include \char`\"{}csv.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{heuristic_8h_ac39288f44d373400d501ed5e87dfd62b}{find\+Nearest\+NeighborH}} (int current\+Node, const std\+::vector$<$ bool $>$ \&visited, const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&distances)
+\begin{DoxyCompactList}\small\item\em Find the nearest neighbor node not visited yet. \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{heuristic_8h_af97998f969d368f35ed9c572f48dbf01}{nearest\+Neighbor\+Approximation}} (const std\+::vector$<$ int $>$ \&cluster, const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&distances)
+\begin{DoxyCompactList}\small\item\em Perform the nearest neighbor 2-\/approximation algorithm to find a sub-\/tour for a given cluster. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \mbox{\hyperlink{heuristic_8h_ad8d79d64591614a23a691ef0cc80a7c3}{perform\+Hierarchical\+Clustering}} (const std\+::vector$<$ T $>$ \&data, int num\+Clusters)
+\begin{DoxyCompactList}\small\item\em Perform the hierarchical clustering algorithm to divide the points into clusters. \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{heuristic_8h_ab7ac5a6bcea9c087cb42d1361b6d0f53}{perform\+Divide\+And\+Conquer}} (const std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \&clusters, const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&distances)
+\begin{DoxyCompactList}\small\item\em Perform the divide and conquer algorithm to find the best tour for each cluster. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{heuristic_8h_ac9b208c0ec68693d01c60a889c12dd2c}{solve\+HStadiums}} (const std\+::string \&filename, int num\+Clusters)
+\begin{DoxyCompactList}\small\item\em Solve TSP using hierarchical clustering, divide and conquer, and nearest neighbor 2-\/approximation for the \char`\"{}stadiums.\+csv\char`\"{} file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{heuristic_8h_a5adc0888aceb534eb5e784a681d5843b}{solve\+HTourism}} (const std\+::string \&filename, int num\+Clusters)
+\begin{DoxyCompactList}\small\item\em Solve the Tourism Traveling Salesman Problem (TSP) using hierarchical clustering, divide and conquer, and nearest neighbor 2-\/approximation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{heuristic_8h_aa7a5e62c12b33ed71ead0c600f0334c6}{solve\+HShipping}} (const std\+::string \&filename, int num\+Clusters)
+\begin{DoxyCompactList}\small\item\em Solve the Shipping Traveling Salesman Problem (TSP) using hierarchical clustering, divide and conquer, and nearest neighbor 2-\/approximation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Code for solving the Traveling Salesman Problem (TSP) using hierarchical clustering, divide and conquer, and nearest neighbor 2-\/approximation for the stadiums toy graph -\/ 4.\+3. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{heuristic_8h_ac39288f44d373400d501ed5e87dfd62b}\label{heuristic_8h_ac39288f44d373400d501ed5e87dfd62b}} 
+\index{heuristic.h@{heuristic.h}!findNearestNeighborH@{findNearestNeighborH}}
+\index{findNearestNeighborH@{findNearestNeighborH}!heuristic.h@{heuristic.h}}
+\doxysubsubsection{\texorpdfstring{findNearestNeighborH()}{findNearestNeighborH()}}
+{\footnotesize\ttfamily int find\+Nearest\+NeighborH (\begin{DoxyParamCaption}\item[{int}]{current\+Node,  }\item[{const std\+::vector$<$ bool $>$ \&}]{visited,  }\item[{const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&}]{distances }\end{DoxyParamCaption})}
+
+
+
+Find the nearest neighbor node not visited yet. 
+
+This function finds the nearest neighbor node to the current node that has not been visited yet, based on the distances between nodes and the visited status. The time complexity is O(n), where n is the number of nodes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Node} & The index of the current node. \\
+\hline
+{\em visited} & A vector indicating whether each node has been visited or not. \\
+\hline
+{\em distances} & A 2D vector representing the distances between nodes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the nearest neighbor node that has not been visited yet. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{heuristic_8h_af97998f969d368f35ed9c572f48dbf01}\label{heuristic_8h_af97998f969d368f35ed9c572f48dbf01}} 
+\index{heuristic.h@{heuristic.h}!nearestNeighborApproximation@{nearestNeighborApproximation}}
+\index{nearestNeighborApproximation@{nearestNeighborApproximation}!heuristic.h@{heuristic.h}}
+\doxysubsubsection{\texorpdfstring{nearestNeighborApproximation()}{nearestNeighborApproximation()}}
+{\footnotesize\ttfamily std\+::vector$<$ int $>$ nearest\+Neighbor\+Approximation (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ int $>$ \&}]{cluster,  }\item[{const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&}]{distances }\end{DoxyParamCaption})}
+
+
+
+Perform the nearest neighbor 2-\/approximation algorithm to find a sub-\/tour for a given cluster. 
+
+This function performs the nearest neighbor 2-\/approximation algorithm to find a sub-\/tour for a given cluster. It starts from the first node in the cluster and iteratively finds the nearest unvisited neighbor, adding it to the tour. The time complexity is O(n), where n is the number of nodes in the cluster.
+
+
+\begin{DoxyParams}{Parameters}
+{\em cluster} & The vector of indices representing the nodes in the cluster. \\
+\hline
+{\em distances} & A 2D vector representing the distances between nodes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector representing the sub-\/tour for the cluster. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{heuristic_8h_ab7ac5a6bcea9c087cb42d1361b6d0f53}\label{heuristic_8h_ab7ac5a6bcea9c087cb42d1361b6d0f53}} 
+\index{heuristic.h@{heuristic.h}!performDivideAndConquer@{performDivideAndConquer}}
+\index{performDivideAndConquer@{performDivideAndConquer}!heuristic.h@{heuristic.h}}
+\doxysubsubsection{\texorpdfstring{performDivideAndConquer()}{performDivideAndConquer()}}
+{\footnotesize\ttfamily std\+::vector$<$ int $>$ perform\+Divide\+And\+Conquer (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \&}]{clusters,  }\item[{const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&}]{distances }\end{DoxyParamCaption})}
+
+
+
+Perform the divide and conquer algorithm to find the best tour for each cluster. 
+
+This function performs the divide and conquer algorithm to find the best tour for each cluster. It returns a vector representing the tour, where each element is the index of a node in the tour. The time complexity is O(n$^\wedge$2), where n is the total number of nodes in all clusters.
+
+
+\begin{DoxyParams}{Parameters}
+{\em clusters} & The vector of clusters, where each cluster is represented by a vector of point indices. \\
+\hline
+{\em distances} & A 2D vector representing the distances between nodes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector representing the tour. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{heuristic_8h_ad8d79d64591614a23a691ef0cc80a7c3}\label{heuristic_8h_ad8d79d64591614a23a691ef0cc80a7c3}} 
+\index{heuristic.h@{heuristic.h}!performHierarchicalClustering@{performHierarchicalClustering}}
+\index{performHierarchicalClustering@{performHierarchicalClustering}!heuristic.h@{heuristic.h}}
+\doxysubsubsection{\texorpdfstring{performHierarchicalClustering()}{performHierarchicalClustering()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::vector$<$ std\+::vector$<$ int $>$ $>$ perform\+Hierarchical\+Clustering (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ T $>$ \&}]{data,  }\item[{int}]{num\+Clusters }\end{DoxyParamCaption})}
+
+
+
+Perform the hierarchical clustering algorithm to divide the points into clusters. 
+
+This function performs the hierarchical clustering algorithm to divide the points into the specified number of clusters. It returns a vector of clusters, where each cluster is represented by a vector of point indices. The time complexity is O(n$^\wedge$2 $\ast$ log(n)), where n is the number of nodes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & The vector of data points. \\
+\hline
+{\em num\+Clusters} & The number of clusters to create. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of clusters, where each cluster is represented by a vector of point indices. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{heuristic_8h_aa7a5e62c12b33ed71ead0c600f0334c6}\label{heuristic_8h_aa7a5e62c12b33ed71ead0c600f0334c6}} 
+\index{heuristic.h@{heuristic.h}!solveHShipping@{solveHShipping}}
+\index{solveHShipping@{solveHShipping}!heuristic.h@{heuristic.h}}
+\doxysubsubsection{\texorpdfstring{solveHShipping()}{solveHShipping()}}
+{\footnotesize\ttfamily void solve\+HShipping (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename,  }\item[{int}]{num\+Clusters }\end{DoxyParamCaption})}
+
+
+
+Solve the Shipping Traveling Salesman Problem (TSP) using hierarchical clustering, divide and conquer, and nearest neighbor 2-\/approximation. 
+
+This function solves the Traveling Salesman Problem (TSP) using hierarchical clustering, divide and conquer, and nearest neighbor 2-\/approximation. It loads the shipping data from the specified file, performs the necessary steps to find the tour, and calculates the total distance of the tour. It then prints the tour and the total distance. The time complexity is O(n$^\wedge$2), where n is the number of nodes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The filename of the shipping data file. \\
+\hline
+{\em num\+Clusters} & The number of clusters to create using hierarchical clustering. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{heuristic_8h_ac9b208c0ec68693d01c60a889c12dd2c}\label{heuristic_8h_ac9b208c0ec68693d01c60a889c12dd2c}} 
+\index{heuristic.h@{heuristic.h}!solveHStadiums@{solveHStadiums}}
+\index{solveHStadiums@{solveHStadiums}!heuristic.h@{heuristic.h}}
+\doxysubsubsection{\texorpdfstring{solveHStadiums()}{solveHStadiums()}}
+{\footnotesize\ttfamily void solve\+HStadiums (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename,  }\item[{int}]{num\+Clusters }\end{DoxyParamCaption})}
+
+
+
+Solve TSP using hierarchical clustering, divide and conquer, and nearest neighbor 2-\/approximation for the \char`\"{}stadiums.\+csv\char`\"{} file. 
+
+This function solves the Traveling Salesman Problem (TSP) using hierarchical clustering, divide and conquer, and nearest neighbor 2-\/approximation. It loads the stadium data from the specified file, performs the necessary steps to find the tour, and calculates the total distance of the tour. It then prints the tour and the total distance. The time complexity is O(n$^\wedge$2), where n is the number of nodes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The filename of the \char`\"{}stadiums.\+csv\char`\"{} file. \\
+\hline
+{\em num\+Clusters} & The number of clusters to create using hierarchical clustering. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{heuristic_8h_a5adc0888aceb534eb5e784a681d5843b}\label{heuristic_8h_a5adc0888aceb534eb5e784a681d5843b}} 
+\index{heuristic.h@{heuristic.h}!solveHTourism@{solveHTourism}}
+\index{solveHTourism@{solveHTourism}!heuristic.h@{heuristic.h}}
+\doxysubsubsection{\texorpdfstring{solveHTourism()}{solveHTourism()}}
+{\footnotesize\ttfamily void solve\+HTourism (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename,  }\item[{int}]{num\+Clusters }\end{DoxyParamCaption})}
+
+
+
+Solve the Tourism Traveling Salesman Problem (TSP) using hierarchical clustering, divide and conquer, and nearest neighbor 2-\/approximation. 
+
+This function solves the Traveling Salesman Problem (TSP) using hierarchical clustering, divide and conquer, and nearest neighbor 2-\/approximation. It loads the tourism data from the specified file, performs the necessary steps to find the tour, and calculates the total distance of the tour. It then prints the tour and the total distance. The time complexity is O(n$^\wedge$2), where n is the number of nodes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The filename of the tourism data file. \\
+\hline
+{\em num\+Clusters} & The number of clusters to create using hierarchical clustering. \\
+\hline
+\end{DoxyParams}

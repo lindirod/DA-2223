@@ -1,0 +1,85 @@
+\hypertarget{tourism__tsp_8h}{}\doxysection{tourism\+\_\+tsp.\+h File Reference}
+\label{tourism__tsp_8h}\index{tourism\_tsp.h@{tourism\_tsp.h}}
+
+
+Code for solving the Traveling Salesman Problem (TSP) for tourism routes using the Triangular Approximation Algorithm for the tourism toy graph -\/ 4.\+2.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+{\ttfamily \#include \char`\"{}csv.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{tourism__tsp_8h_ac63a4212431a5997f23996606877ea3e}{find\+Nearest\+Neighbor\+Tourism}} (int current\+Node, const std\+::vector$<$ bool $>$ \&visited, const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&distances)
+\begin{DoxyCompactList}\small\item\em Find the nearest neighbor node not visited yet. The time complexity of this function is O(n), where n is the number of nodes. \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{tourism__tsp_8h_aceb13bc0c12a203c8b23c69dfbb3f0ba}{triangular\+Approximation\+Tourism}} (const std\+::vector$<$ \mbox{\hyperlink{struct_tourism_data}{Tourism\+Data}} $>$ \&edges, int num\+Nodes)
+\begin{DoxyCompactList}\small\item\em Perform the Triangular Approximation Heuristic for tourism routes. The time complexity of this function is O(n$^\wedge$2), where n is the number of nodes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{tourism__tsp_8h_aa83b5b992a226b7b1ddbf257899b59c3}{solve\+TSPTourism}} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Solve TSP for tourism routes using the Triangular Approximation Heuristic. The time complexity of this function depends on the number of nodes and edges in the input graph. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Code for solving the Traveling Salesman Problem (TSP) for tourism routes using the Triangular Approximation Algorithm for the tourism toy graph -\/ 4.\+2. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tourism__tsp_8h_ac63a4212431a5997f23996606877ea3e}\label{tourism__tsp_8h_ac63a4212431a5997f23996606877ea3e}} 
+\index{tourism\_tsp.h@{tourism\_tsp.h}!findNearestNeighborTourism@{findNearestNeighborTourism}}
+\index{findNearestNeighborTourism@{findNearestNeighborTourism}!tourism\_tsp.h@{tourism\_tsp.h}}
+\doxysubsubsection{\texorpdfstring{findNearestNeighborTourism()}{findNearestNeighborTourism()}}
+{\footnotesize\ttfamily int find\+Nearest\+Neighbor\+Tourism (\begin{DoxyParamCaption}\item[{int}]{current\+Node,  }\item[{const std\+::vector$<$ bool $>$ \&}]{visited,  }\item[{const std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \&}]{distances }\end{DoxyParamCaption})}
+
+
+
+Find the nearest neighbor node not visited yet. The time complexity of this function is O(n), where n is the number of nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Node} & The current node. \\
+\hline
+{\em visited} & A vector indicating whether a node has been visited. \\
+\hline
+{\em distances} & The matrix of distances between nodes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the nearest neighbor. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{tourism__tsp_8h_aa83b5b992a226b7b1ddbf257899b59c3}\label{tourism__tsp_8h_aa83b5b992a226b7b1ddbf257899b59c3}} 
+\index{tourism\_tsp.h@{tourism\_tsp.h}!solveTSPTourism@{solveTSPTourism}}
+\index{solveTSPTourism@{solveTSPTourism}!tourism\_tsp.h@{tourism\_tsp.h}}
+\doxysubsubsection{\texorpdfstring{solveTSPTourism()}{solveTSPTourism()}}
+{\footnotesize\ttfamily void solve\+TSPTourism (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename }\end{DoxyParamCaption})}
+
+
+
+Solve TSP for tourism routes using the Triangular Approximation Heuristic. The time complexity of this function depends on the number of nodes and edges in the input graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the CSV file containing the tourism route data. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{tourism__tsp_8h_aceb13bc0c12a203c8b23c69dfbb3f0ba}\label{tourism__tsp_8h_aceb13bc0c12a203c8b23c69dfbb3f0ba}} 
+\index{tourism\_tsp.h@{tourism\_tsp.h}!triangularApproximationTourism@{triangularApproximationTourism}}
+\index{triangularApproximationTourism@{triangularApproximationTourism}!tourism\_tsp.h@{tourism\_tsp.h}}
+\doxysubsubsection{\texorpdfstring{triangularApproximationTourism()}{triangularApproximationTourism()}}
+{\footnotesize\ttfamily std\+::vector$<$ int $>$ triangular\+Approximation\+Tourism (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{struct_tourism_data}{Tourism\+Data}} $>$ \&}]{edges,  }\item[{int}]{num\+Nodes }\end{DoxyParamCaption})}
+
+
+
+Perform the Triangular Approximation Heuristic for tourism routes. The time complexity of this function is O(n$^\wedge$2), where n is the number of nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em edges} & The vector of tourism route data. \\
+\hline
+{\em num\+Nodes} & The number of nodes in the graph. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector representing the tour. 
+\end{DoxyReturn}

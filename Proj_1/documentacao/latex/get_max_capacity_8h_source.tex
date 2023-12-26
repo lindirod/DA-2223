@@ -1,0 +1,99 @@
+\hypertarget{get_max_capacity_8h_source}{}\doxysection{get\+Max\+Capacity.\+h}
+\mbox{\hyperlink{get_max_capacity_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ GETMAXCAPACITY\_H}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ GETMAXCAPACITY\_H}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <climits>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{stations_8h}{stations.h}}"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{segment_8h}{segment.h}}"{}}}
+\DoxyCodeLine{00018\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{get_max_capacity_8h_a0baa00709547b6a0a441ac5ccb88aac0}{getMaxCapacity}}(\textcolor{keywordtype}{string}\ stationA,\ \textcolor{keywordtype}{string}\ stationB,\ \textcolor{keyword}{const}\ vector<Station>\&\ stations,\ \textcolor{keyword}{const}\ vector<Segment>\&\ segments)\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//\ Find\ the\ source\ and\ sink\ nodes}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{int}\ source\ =\ -\/1,\ sink\ =\ -\/1;}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ stations.size();\ i++)\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stations[i].name\ ==\ stationA)\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ source\ =\ i;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stations[i].name\ ==\ stationB)\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ sink\ =\ i;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{if}\ (source\ ==\ -\/1)\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ station\ "{}}\ <<\ stationA\ <<\ \textcolor{stringliteral}{"{}\ not\ found"{}}\ <<\ endl;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{if}\ (sink\ ==\ -\/1)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ station\ "{}}\ <<\ stationB\ <<\ \textcolor{stringliteral}{"{}\ not\ found"{}}\ <<\ endl;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{//\ Create\ the\ adjacency\ matrix\ for\ the\ flow\ network}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n\ =\ stations.size();}
+\DoxyCodeLine{00057\ \ \ \ \ vector<vector<int>>\ adjMatrix(n,\ vector<int>(n,\ 0));}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ segment\ :\ segments)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ -\/1,\ j\ =\ -\/1;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ k\ =\ 0;\ k\ <\ stations.size();\ k++)\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stations[k].name\ ==\ segment.stationA)\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ =\ k;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stations[k].name\ ==\ segment.stationB)\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ j\ =\ k;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ !=\ -\/1\ \&\&\ j\ !=\ -\/1)\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ adjMatrix[i][j]\ +=\ segment.capacity;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ adjMatrix[j][i]\ +=\ segment.capacity;\ \textcolor{comment}{//\ assume\ undirected}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{//\ Compute\ the\ maximum\ flow\ between\ the\ source\ and\ sink\ nodes\ using\ the\ Edmonds-\/Karp\ algorithm}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{int}\ maxFlow\ =\ 0;}
+\DoxyCodeLine{00076\ \ \ \ \ vector<vector<int>>\ residual(adjMatrix);\ \textcolor{comment}{//\ initialize\ residual\ network\ to\ the\ same\ as\ the\ original\ network}}
+\DoxyCodeLine{00077\ \ \ \ \ vector<int>\ parent(n,\ -\/1);}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ queue<int>\ q;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ q.push(source);}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ fill(parent.begin(),\ parent.end(),\ -\/1);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ parent[source]\ =\ -\/2;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!q.empty())\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ u\ =\ q.front();}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ q.pop();}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ v\ =\ 0;\ v\ <\ n;\ v++)\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (parent[v]\ ==\ -\/1\ \&\&\ residual[u][v]\ >\ 0)\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parent[v]\ =\ u;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (v\ ==\ sink)\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ q.push(v);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (parent[sink]\ ==\ -\/1)\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};\ \textcolor{comment}{//\ no\ more\ augmenting\ paths}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ pathCapacity\ =\ INT\_MAX;}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ v\ =\ sink;\ v\ !=\ source;\ v\ =\ parent[v])\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ u\ =\ parent[v];}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ pathCapacity\ =\ min(pathCapacity,\ residual[u][v]);}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ v\ =\ sink;\ v\ !=\ source;\ v\ =\ parent[v])\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ u\ =\ parent[v];}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ residual[u][v]\ -\/=\ pathCapacity;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ residual[v][u]\ +=\ pathCapacity;\ \textcolor{comment}{//\ assume\ undirected}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ maxFlow\ +=\ pathCapacity;}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{comment}{//\ Return\ the\ maximum\ flow,\ which\ is\ also\ the\ maximum\ capacity}}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordflow}{return}\ maxFlow;}
+\DoxyCodeLine{00114\ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ GETMAXCAPACITY\_H}}
+
+\end{DoxyCode}

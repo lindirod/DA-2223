@@ -1,0 +1,176 @@
+\hypertarget{max_trains_8h_source}{}\doxysection{max\+Trains.\+h}
+\mbox{\hyperlink{max_trains_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <cstring>}\ \ \textcolor{comment}{//\ memset}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{stations_8h}{stations.h}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{station_pair_8h}{stationPair.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{segment_8h}{segment.h}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ MAX\_NODES\ =\ 100005;\ \textcolor{comment}{//\ maximum\ number\ of\ nodes}}
+\DoxyCodeLine{00017\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ INF\ =\ 1e9;\ \textcolor{comment}{//\ infinity}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ Structure\ to\ represent\ an\ edge\ in\ the\ graph}}
+\DoxyCodeLine{00020\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_edge}{Edge}}\ \{}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{int}\ to;\ \textcolor{comment}{//\ destination\ node}}
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{int}\ capacity;\ \textcolor{comment}{//\ capacity\ of\ the\ edge}}
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{int}\ reverse\_edge\_index;\ \textcolor{comment}{//\ index\ of\ the\ reverse\ edge\ in\ the\ adjacency\ list\ of\ the\ destination\ node}}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ vector<Edge>\ graph[MAX\_NODES];\ \textcolor{comment}{//\ adjacency\ list\ to\ store\ the\ graph}}
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{int}\ level[MAX\_NODES];\ \textcolor{comment}{//\ level\ of\ each\ node\ in\ the\ BFS\ tree}}
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{int}\ iterator\_index[MAX\_NODES];\ \textcolor{comment}{//\ index\ of\ the\ next\ edge\ to\ be\ explored\ in\ the\ DFS\ tree}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{max_trains_8h_af800aed4732e29db338c7140df267765}{add\_edge}}(\textcolor{keywordtype}{int}\ from,\ \textcolor{keywordtype}{int}\ to,\ \textcolor{keywordtype}{int}\ capacity)\ \{}
+\DoxyCodeLine{00038\ graph[from].push\_back(\{\ to,\ capacity,\ (int)graph[to].size()\ \});}
+\DoxyCodeLine{00039\ graph[to].push\_back(\{\ from,\ 0,\ (int)graph[from].size()\ -\/\ 1\ \});}
+\DoxyCodeLine{00040\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00051\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{max_trains_8h_abf3cab62a201190ef70b68e5c909bad1}{bfs}}(\textcolor{keywordtype}{int}\ source\_node)\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ memset(level,\ -\/1,\ \textcolor{keyword}{sizeof}(level));\ \ \textcolor{comment}{//\ Initialize\ all\ levels\ to\ -\/1}}
+\DoxyCodeLine{00053\ \ \ \ \ queue<int>\ q;}
+\DoxyCodeLine{00054\ \ \ \ \ level[source\_node]\ =\ 0;}
+\DoxyCodeLine{00055\ \ \ \ \ q.push(source\_node);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{while}\ (!q.empty())\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ current\_node\ =\ q.front();}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ q.pop();}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{struct_edge}{Edge}}\&\ edge\ :\ graph[current\_node])\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edge.capacity\ >\ 0\ \&\&\ level[edge.to]\ <\ 0)\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ level[edge.to]\ =\ level[current\_node]\ +\ 1;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ q.push(edge.to);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00082\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{max_trains_8h_a573d5c2a044362ae85af48c54d9f8ea6}{dfs}}(\textcolor{keywordtype}{int}\ current\_node,\ \textcolor{keywordtype}{int}\ sink\_node,\ \textcolor{keywordtype}{int}\ flow)\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{if}\ (current\_node\ ==\ sink\_node)\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ flow;}
+\DoxyCodeLine{00085\ \ \ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\&\ i\ =\ iterator\_index[current\_node];\ i\ <\ graph[current\_node].size();\ i++)\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_edge}{Edge}}\&\ edge\ =\ graph[current\_node][i];}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edge.capacity\ >\ 0\ \&\&\ level[current\_node]\ <\ level[edge.to])\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ current\_flow\ =\ \mbox{\hyperlink{max_trains_8h_a573d5c2a044362ae85af48c54d9f8ea6}{dfs}}(edge.to,\ sink\_node,\ min(flow,\ edge.capacity));}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (current\_flow\ >\ 0)\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ edge.capacity\ -\/=\ current\_flow;}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ graph[edge.to][edge.reverse\_edge\_index].capacity\ +=\ current\_flow;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ current\_flow;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00102\ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00114\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{max_trains_8h_a0180aa715cd1512e9bcbbf209b74194a}{max\_flow}}(\textcolor{keywordtype}{int}\ source\_node,\ \textcolor{keywordtype}{int}\ sink\_node)\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{int}\ flow\ =\ 0;}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{max_trains_8h_abf3cab62a201190ef70b68e5c909bad1}{bfs}}(source\_node);}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (level[sink\_node]\ <\ 0)\ \{\ \ \textcolor{comment}{//\ If\ sink\ is\ not\ reachable\ from\ the\ source,\ terminate}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ flow;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ memset(iterator\_index,\ 0,\ \textcolor{keyword}{sizeof}(iterator\_index));\ \ \textcolor{comment}{//\ Reset\ iterator\_index\ for\ each\ iteration}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ current\_flow;}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ ((current\_flow\ =\ \mbox{\hyperlink{max_trains_8h_a573d5c2a044362ae85af48c54d9f8ea6}{dfs}}(source\_node,\ sink\_node,\ INF))\ >\ 0)\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ flow\ +=\ current\_flow;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00143\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{max_trains_8h_a78a041aec9a5d99c5b0d6ae710eca0dd}{getMaxTrains}}(\textcolor{keywordtype}{string}\ stA,\ \textcolor{keywordtype}{string}\ stB,\ vector<Station>\ stations,\ vector<Segment>\ segments\ )\ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{int}\ source\ =\ -\/1,\ sink\ =\ -\/1;}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ stations.size();\ i++)\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stations[i].name\ ==\ stA)\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ source\ =\ i;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stations[i].name\ ==\ stB)\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ sink\ =\ i;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00152\ \ \ \ \ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{struct_segment}{Segment}}\&\ segment\ :\ segments)\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ segment\ :\ segments)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ -\/1,\ j\ =\ -\/1;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ k\ =\ 0;\ k\ <\ stations.size();\ k++)\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stations[k].name\ ==\ segment.stationA)\ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ =\ k;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (stations[k].name\ ==\ segment.stationB)\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ j\ =\ k;}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{struct_station}{Station}}\&\ station\ :\ stations)\ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (station.name\ ==\ segment.stationA\ ||\ station.name\ ==\ segment.stationB)\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{max_trains_8h_af800aed4732e29db338c7140df267765}{add\_edge}}(i,\ j,\ segment.capacity);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{max_trains_8h_af800aed4732e29db338c7140df267765}{add\_edge}}(j,\ i,\ segment.capacity);}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ \ \ \ \ \}}
+\DoxyCodeLine{00172\ \ \ \ \ \}}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{int}\ max\_flow\_value\ =\ \mbox{\hyperlink{max_trains_8h_a0180aa715cd1512e9bcbbf209b74194a}{max\_flow}}(source,\ sink);}
+\DoxyCodeLine{00174\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Maximum\ flow\ value:\ "{}}\ <<\ max\_flow\_value\ <<\ endl;}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00177\ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00191\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{max_trains_8h_a34ef9c6ee1611acd9bd9097c17c78330}{findMostAffectedStations}}(vector<Station>\ stations,\ vector<Segment>\ segments,\ \textcolor{keywordtype}{int}\ k)\{}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{comment}{//\ Create\ a\ vector\ of\ station\ pairs,\ where\ each\ pair\ is\ a\ unique\ combination\ of\ two\ stations}}
+\DoxyCodeLine{00193\ \ \ \ \ vector<StationPair>\ stationPairs;}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ segments.size();\ i++)\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_station_pair}{StationPair}}\ pair\ =\ \{segments[i].\mbox{\hyperlink{struct_station_pair_af461ff0832eadd4c42119c7c21388521}{stationA}},\ segments[i].stationB,\ segments[i].capacity\};}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ stationPairs.push\_back(pair);}
+\DoxyCodeLine{00197\ \ \ \ \ \}}
+\DoxyCodeLine{00198\ \ \ \ \ }
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{comment}{//\ Sort\ the\ station\ pairs\ in\ descending\ order\ of\ capacity}}
+\DoxyCodeLine{00200\ \ \ \ \ sort(stationPairs.begin(),\ stationPairs.end(),\ [](\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_station_pair}{StationPair}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_station_pair}{StationPair}}\&\ b)\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ return\ a.maxCapacity\ >\ b.maxCapacity;}
+\DoxyCodeLine{00202\ \ \ \ \ \});}
+\DoxyCodeLine{00203\ \ \ \ \ }
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{comment}{//\ Loop\ through\ each\ segment\ and\ find\ the\ top-\/k\ most\ affected\ stations}}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ segments.size();\ i++)\ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Segment\ "{}}\ <<\ i+1\ <<\ \textcolor{stringliteral}{"{}:\ "{}}\ <<\ segments[i].stationA\ <<\ \textcolor{stringliteral}{"{}\ -\/\ "{}}\ <<\ segments[i].stationB\ <<\ endl;}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ vector<string>\ affectedStations;}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ numAffected\ =\ 0;}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ stationPairs.size();\ j++)\ \{}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((stationPairs[j].stationA\ ==\ segments[i].stationA\ \&\&\ stationPairs[j].stationB\ !=\ segments[i].stationB)}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ (stationPairs[j].stationA\ !=\ segments[i].stationA\ \&\&\ stationPairs[j].stationB\ ==\ segments[i].stationB))\ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ This\ station\ pair\ shares\ a\ station\ with\ the\ current\ segment}}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ affectedStation\ =\ stationPairs[j].stationA\ ==\ segments[i].stationA\ ?\ stationPairs[j].stationB\ :\ stationPairs[j].stationA;}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (find(affectedStations.begin(),\ affectedStations.end(),\ affectedStation)\ ==\ affectedStations.end())\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ This\ station\ hasn't\ been\ added\ to\ the\ list\ of\ affected\ stations\ yet}}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ affectedStations.push\_back(affectedStation);}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numAffected++;}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (numAffected\ ==\ k)\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We've\ found\ the\ top-\/k\ most\ affected\ stations,\ so\ we\ can\ stop\ searching}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Print\ the\ top-\/k\ most\ affected\ stations}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ affectedStations.size();\ j++)\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}\ \ "{}}\ <<\ j+1\ <<\ \textcolor{stringliteral}{"{}.\ "{}}\ <<\ affectedStations[j]\ <<\ endl;}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00229\ \ \ \ \ \}}
+\DoxyCodeLine{00230\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,46 @@
+\hypertarget{find_most_demanding_stations_8h_source}{}\doxysection{find\+Most\+Demanding\+Stations.\+h}
+\mbox{\hyperlink{find_most_demanding_stations_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ FINDMOSTDEMANDINGSTATIONS\_H}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ FINDMOSTDEMANDINGSTATIONS\_H}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{stations_8h}{stations.h}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{segment_8h}{segment.h}}"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{station_pair_8h}{stationPair.h}}"{}}}
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{find_most_demanding_stations_8h_adddf98cc09ef066895c12009d562f477}{findMostDemandingStations}}(\textcolor{keyword}{const}\ std::vector<Station>\&\ stations,\ \textcolor{keyword}{const}\ std::vector<Segment>\&\ segments)\{}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ create\ a\ vector\ of\ station\ pairs\ with\ their\ maximum\ capacity}}
+\DoxyCodeLine{00040\ \ \ \ \ vector<StationPair>\ stationPairs;}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it1\ =\ stations.begin();\ it1\ !=\ stations.end();\ ++it1)\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it2\ =\ it1\ +\ 1;\ it2\ !=\ stations.end();\ ++it2)\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ maxCapacity\ =\ 0;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ segment\ :\ segments)\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((segment.stationA\ ==\ it1-\/>name\ \&\&\ segment.stationB\ ==\ it2-\/>name)\ ||}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (segment.stationA\ ==\ it2-\/>name\ \&\&\ segment.stationB\ ==\ it1-\/>name))\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxCapacity\ +=\ segment.capacity;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ stationPairs.push\_back(\{it1-\/>name,\ it2-\/>name,\ maxCapacity\});}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//\ sort\ the\ station\ pairs\ by\ their\ maximum\ capacity\ in\ descending\ order}}
+\DoxyCodeLine{00055\ \ \ \ \ sort(stationPairs.begin(),\ stationPairs.end(),\ \mbox{\hyperlink{station_pair_8h_abdad73a3627a40e959bdd450e7801930}{compareStationPairs}});}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{//\ print\ the\ station\ pairs\ with\ their\ maximum\ capacity}}
+\DoxyCodeLine{00058\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Pairs\ of\ stations\ with\ the\ most\ amount\ of\ trains\ needed:"{}}\ <<\ endl;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ pair\ :\ stationPairs)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pair.maxCapacity\ >\ 0)\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ pair.stationA\ <<\ \textcolor{stringliteral}{"{}\ -\/\ "{}}\ <<\ pair.stationB\ <<\ \textcolor{stringliteral}{"{}:\ "{}}\ <<\ pair.maxCapacity\ <<\ endl;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ \};}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FINDMOSTDEMANDINGSTATIONS\_H}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ }
+
+\end{DoxyCode}
